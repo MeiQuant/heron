@@ -55,86 +55,10 @@ class MainEngine(object):
             print e
         
         try:
-            from ltsGateway.ltsGateway import LtsGateway
-            self.addGateway(LtsGateway, 'LTS')
-            self.gatewayDict['LTS'].setQryEnabled(True)
-        except Exception, e:
-            print e
-        
-        try:
-            from xtpGateway.xtpGateway import XtpGateway
-            self.addGateway(XtpGateway, 'XTP')
-            self.gatewayDict['XTP'].setQryEnabled(True)
-        except Exception, e:
-            print e        
-        
-        try:
-            from ksotpGateway.ksotpGateway import KsotpGateway
-            self.addGateway(KsotpGateway, 'KSOTP')
-            self.gatewayDict['KSOTP'].setQryEnabled(True)
-        except Exception, e:
-            print e    
-            
-        try:
-            from femasGateway.femasGateway import FemasGateway
-            self.addGateway(FemasGateway, 'FEMAS')
-            self.gatewayDict['FEMAS'].setQryEnabled(True)
-        except Exception, e:
-            print e  
-        
-        try:
-            from xspeedGateway.xspeedGateway import XspeedGateway
-            self.addGateway(XspeedGateway, 'XSPEED')
-            self.gatewayDict['XSPEED'].setQryEnabled(True)
-        except Exception, e:
-            print e          
-        
-        try:
-            from ksgoldGateway.ksgoldGateway import KsgoldGateway
-            self.addGateway(KsgoldGateway, 'KSGOLD')
-            self.gatewayDict['KSGOLD'].setQryEnabled(True)
-        except Exception, e:
-            print e
-            
-        try:
-            from sgitGateway.sgitGateway import SgitGateway
-            self.addGateway(SgitGateway, 'SGIT')
-            self.gatewayDict['SGIT'].setQryEnabled(True)
-        except Exception, e:
-            print e        
-            
-        try:
             from windGateway.windGateway import WindGateway
             self.addGateway(WindGateway, 'Wind') 
         except Exception, e:
             print e
-        
-        try:
-            from ibGateway.ibGateway import IbGateway
-            self.addGateway(IbGateway, 'IB')
-        except Exception, e:
-            print e
-            
-        try:
-            from shzdGateway.shzdGateway import ShzdGateway
-            self.addGateway(ShzdGateway, 'SHZD')
-            self.gatewayDict['SHZD'].setQryEnabled(True)
-        except Exception, e:
-            print e       
-            
-        try:
-            from oandaGateway.oandaGateway import OandaGateway
-            self.addGateway(OandaGateway, 'OANDA')
-            self.gatewayDict['OANDA'].setQryEnabled(True)
-        except Exception, e:
-            print e
-        
-        try:
-            from okcoinGateway.okcoinGateway import OkcoinGateway
-            self.addGateway(OkcoinGateway, 'OKCOIN')
-            self.gatewayDict['OKCOIN'].setQryEnabled(True)
-        except Exception, e:
-            print e        
 
     #----------------------------------------------------------------------
     def addGateway(self, gateway, gatewayName=None):

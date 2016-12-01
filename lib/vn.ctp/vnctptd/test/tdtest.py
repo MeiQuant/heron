@@ -3,8 +3,6 @@
 import sys
 from time import sleep
 
-from PyQt4 import QtGui
-
 from vnctptd import *
 
 #----------------------------------------------------------------------
@@ -103,9 +101,6 @@ class TestTdApi(TdApi):
 def main():
     """主测试函数，出现堵塞时可以考虑使用sleep"""
     reqid = 0
-    
-    # 创建Qt应用对象，用于事件循环
-    app = QtGui.QApplication(sys.argv)
 
     # 创建API对象，测试通过
     api = TestTdApi()
@@ -155,7 +150,7 @@ def main():
     
     
     # 连续运行
-    app.exec_()
+    
     
     
     
