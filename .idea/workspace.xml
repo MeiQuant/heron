@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6cdf2468-8441-4741-97bb-071d65ff8be3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/vn.trader/ctpGateway/vnctpmd.so" afterPath="$PROJECT_DIR$/lib/vn.trader/ctpGateway/vnctpmd.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/vn.trader/ctpGateway/vnctptd.so" afterPath="$PROJECT_DIR$/lib/vn.trader/ctpGateway/vnctptd.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/vn.ctp/vnctptd/test/tdtest.py" afterPath="$PROJECT_DIR$/lib/vn.ctp/vnctptd/test/tdtest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/vn.trader/vtEngine.py" afterPath="$PROJECT_DIR$/lib/vn.trader/vtEngine.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/vn.trader/vtMain.py" afterPath="$PROJECT_DIR$/lib/vn.trader/vtMain.py" />
-    </list>
+    <list default="true" id="6cdf2468-8441-4741-97bb-071d65ff8be3" name="Default" comment="" />
     <ignored path="Heron.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -54,8 +47,8 @@
       <file leaf-file-name="tdtest.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/vn.ctp/vnctptd/test/tdtest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8125">
-              <caret line="152" column="4" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.359375">
+              <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
               <folding>
                 <element signature="e#19#29#0" expanded="true" />
               </folding>
@@ -320,8 +313,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/vn.ctp/vnctptd/test/tdtest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8125">
-          <caret line="152" column="4" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.359375">
+          <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
           <folding>
             <element signature="e#19#29#0" expanded="true" />
           </folding>
