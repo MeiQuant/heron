@@ -212,6 +212,14 @@ class MainEngine(object):
     def getAllWorkingOrders(self):
         """查询所有的活跃的委托（返回列表）"""
         return self.dataEngine.getAllWorkingOrders()
+
+    #----------------------------------------------------------------------
+    def run(self):
+
+        # todo 修改启动后的动作
+        self.ctaEngine.loadSetting()
+        self.ctaEngine.initStrategy("strategyName")
+        self.ctaEngine.startStrategy("strategyName")
     
 
 ########################################################################
