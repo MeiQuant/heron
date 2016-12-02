@@ -19,7 +19,7 @@ from riskManager.rmEngine import RmEngine
 class MainEngine(object):
     """主引擎"""
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self):
         """Constructor"""
         # 创建事件引擎
@@ -31,7 +31,10 @@ class MainEngine(object):
         
         # MongoDB数据库相关
         self.dbClient = None    # MongoDB客户端对象
-        
+
+        # 用来保存接口对象的字典
+        self.gatewayDict = OrderedDict()
+
         # 调用一个个初始化函数
         self.initGateway()
 
@@ -40,12 +43,10 @@ class MainEngine(object):
         self.drEngine = DrEngine(self, self.eventEngine)
         self.rmEngine = RmEngine(self, self.eventEngine)
         
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def initGateway(self):
         """初始化接口对象"""
-        # 用来保存接口对象的字典
-        self.gatewayDict = OrderedDict()
-        
+
         # 创建我们想要接入的接口对象
         try:
             from ctpGateway.ctpGateway import CtpGateway
@@ -60,21 +61,22 @@ class MainEngine(object):
         except Exception, e:
             print e
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def addGateway(self, gateway, gatewayName=None):
         """创建接口"""
         self.gatewayDict[gatewayName] = gateway(self.eventEngine, gatewayName)
         
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def connect(self, gatewayName):
         """连接特定名称的接口"""
         if gatewayName in self.gatewayDict:
             gateway = self.gatewayDict[gatewayName]
+            self.writeLog(u'I am here：%s' %gatewayName)
             gateway.connect()
         else:
             self.writeLog(u'接口不存在：%s' %gatewayName)
         
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def subscribe(self, subscribeReq, gatewayName):
         """订阅特定接口的行情"""
         if gatewayName in self.gatewayDict:
@@ -83,7 +85,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' %gatewayName)        
         
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def sendOrder(self, orderReq, gatewayName):
         """对特定接口发单"""
         # 如果风控检查失败则不发单
@@ -96,7 +98,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' %gatewayName)        
     
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def cancelOrder(self, cancelOrderReq, gatewayName):
         """对特定接口撤单"""
         if gatewayName in self.gatewayDict:
@@ -105,7 +107,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' %gatewayName)        
         
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def qryAccount(self, gatewayName):
         """查询特定接口的账户"""
         if gatewayName in self.gatewayDict:
@@ -114,7 +116,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' %gatewayName)        
         
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def qryPosition(self, gatewayName):
         """查询特定接口的持仓"""
         if gatewayName in self.gatewayDict:

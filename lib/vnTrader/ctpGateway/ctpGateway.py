@@ -1,11 +1,11 @@
 # encoding: UTF-8
 
-'''
+"""
 vn.ctp的gateway接入
 
 考虑到现阶段大部分CTP中的ExchangeID字段返回的都是空值
 vtSymbol直接使用symbol
-'''
+"""
 
 
 import os
@@ -128,6 +128,7 @@ class CtpGateway(VtGateway):
         
         # 初始化并启动查询
         self.initQuery()
+        print 'c'
     
     #----------------------------------------------------------------------
     def subscribe(self, subscribeReq):
@@ -1445,14 +1446,10 @@ class PositionBuffer(object):
 #----------------------------------------------------------------------
 def test():
     """测试"""
-    from PyQt4 import QtCore
-    import sys
-    
+
     def print_log(event):
         log = event.dict_['data']
         print ':'.join([log.logTime, log.logContent])
-    
-    app = QtCore.QCoreApplication(sys.argv)    
 
     eventEngine = EventEngine()
     eventEngine.register(EVENT_LOG, print_log)
@@ -1460,8 +1457,6 @@ def test():
     
     gateway = CtpGateway(eventEngine)
     gateway.connect()
-    
-    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-'''
+"""
 本文件中实现了CTA策略引擎，针对CTA类型的策略，抽象简化了部分底层接口的功能。
 
 关于平今和平昨规则：
@@ -14,7 +14,7 @@
    感到功能不足的用户（即希望更高频的交易），交易策略不应该出现4中所述的情况
 6. 对于想要实现4中所述情况的用户，需要实现一个策略信号引擎和交易委托引擎分开
    的定制化统结构（没错，得自己写）
-'''
+"""
 
 import json
 import os
@@ -24,10 +24,10 @@ from datetime import datetime, timedelta
 
 from ctaBase import *
 from ctaSetting import STRATEGY_CLASS
-from eventEngine import *
-from vtConstant import *
-from vtGateway import VtSubscribeReq, VtOrderReq, VtCancelOrderReq, VtLogData
-from vtFunction import todayDate
+from lib.vnTrader.eventEngine import *
+from lib.vnTrader.vtConstant import *
+from lib.vnTrader.vtGateway import VtSubscribeReq, VtOrderReq, VtCancelOrderReq, VtLogData
+from lib.vnTrader.vtFunction import todayDate
 
 
 ########################################################################

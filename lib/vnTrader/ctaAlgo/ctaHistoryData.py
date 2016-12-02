@@ -12,8 +12,8 @@ from time import time
 from multiprocessing.pool import ThreadPool
 
 from ctaBase import *
-from vtConstant import *
-from vtFunction import loadMongoSetting
+from lib.vnTrader.vtConstant import *
+from lib.vnTrader.vtFunction import loadMongoSetting
 from datayesClient import DatayesClient
 
 

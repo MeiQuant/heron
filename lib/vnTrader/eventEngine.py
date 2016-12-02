@@ -7,7 +7,7 @@ from time import sleep
 from collections import defaultdict
 
 # 第三方模块
-from PyQt4.QtCore import QTimer
+# from PyQt4.QtCore import QTimer
 
 # 自己开发的模块
 from eventType import *
@@ -63,8 +63,13 @@ class EventEngine(object):
         self.__thread = Thread(target = self.__run)
         
         # 计时器，用于触发计时器事件
-        self.__timer = QTimer()
-        self.__timer.timeout.connect(self.__onTimer)
+        # self.__timer = QTimer()
+        self.__timer = Thread(target = self.__runTimer)
+
+        # self.__timer.timeout.connect(self.__onTimer)
+
+        self.__timerActive = False                      # 计时器工作状态
+        self.__timerSleep = 1                           # 计时器触发间隔（默认1秒）
         
         # 这里的__handlers是一个字典，用来保存对应的事件调用关系
         # 其中每个键对应的值是一个列表，列表中保存了对该事件进行监听的函数功能
@@ -294,14 +299,11 @@ def test():
     def simpletest(event):
         print u'处理每秒触发的计时器事件：%s' % str(datetime.now())
     
-    app = QCoreApplication(sys.argv)
-    
+
     ee = EventEngine2()
     ee.register(EVENT_TIMER, simpletest)
     ee.start()
-    
-    app.exec_()
-    
+
     
 # 直接运行脚本可以进行测试
 if __name__ == '__main__':

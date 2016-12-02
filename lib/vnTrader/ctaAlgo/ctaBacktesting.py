@@ -1,9 +1,10 @@
 # encoding: UTF-8
 
-'''
+"""
 本文件中包含的是CTA模块的回测引擎，回测引擎的API和CTA引擎一致，
 可以使用和实盘相同的代码进行回测。
-'''
+"""
+
 from __future__ import division
 
 from datetime import datetime, timedelta
@@ -15,9 +16,9 @@ import pymongo
 from ctaBase import *
 from ctaSetting import *
 
-from vtConstant import *
-from vtGateway import VtOrderData, VtTradeData
-from vtFunction import loadMongoSetting
+from lib.vnTrader.vtConstant import *
+from lib.vnTrader.vtGateway import VtOrderData, VtTradeData
+from lib.vnTrader.vtFunction import loadMongoSetting
 
 
 ########################################################################

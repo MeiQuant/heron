@@ -1,8 +1,8 @@
 # encoding: UTF-8
 
-'''
+"""
 Wind Python API的gateway接入
-'''
+"""
 
 from copy import copy
 
@@ -11,7 +11,7 @@ try:
 except ImportError:
     print u'请先安装WindPy接口'
 
-from vtGateway import *
+from lib.vnTrader.vtGateway import *
 
 # 交易所类型映射
 exchangeMap = {}

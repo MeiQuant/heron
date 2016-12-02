@@ -1,10 +1,10 @@
 # encoding: UTF-8
 
-'''
+"""
 本文件中实现了行情数据记录引擎，用于汇总TICK数据，并生成K线插入数据库。
 
 使用DR_setting.json来配置需要收集的合约，以及主力合约代码。
-'''
+"""
 
 import json
 import os
@@ -14,10 +14,10 @@ from datetime import datetime, timedelta
 from Queue import Queue
 from threading import Thread
 
-from eventEngine import *
-from vtGateway import VtSubscribeReq, VtLogData
+from lib.vnTrader.eventEngine import *
+from lib.vnTrader.vtGateway import VtSubscribeReq, VtLogData
 from drBase import *
-from vtFunction import todayDate
+from lib.vnTrader.vtFunction import todayDate
 
 
 ########################################################################

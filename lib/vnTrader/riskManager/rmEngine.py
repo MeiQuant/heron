@@ -1,19 +1,19 @@
 # encoding: UTF-8
 
-'''
+"""
 本文件中实现了风控引擎，用于提供一系列常用的风控功能：
 1. 委托流控（单位时间内最大允许发出的委托数量）
 2. 总成交限制（每日总成交数量限制）
 3. 单笔委托的委托数量控制
-'''
+"""
 
 import json
 import os
 import platform
 
-from eventEngine import *
-from vtConstant import *
-from vtGateway import VtLogData
+from lib.vnTrader.eventEngine import *
+from lib.vnTrader.vtConstant import *
+from lib.vnTrader.vtGateway import VtLogData
 
 
 ########################################################################

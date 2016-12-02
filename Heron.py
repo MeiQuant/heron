@@ -1,8 +1,8 @@
 # encoding: UTF-8
+
 """
 Heron
-=====
-
+----
 程序主入口
 
 * 启动之后自动连接CTP柜台
@@ -13,15 +13,18 @@ Heron
 
 """
 
-import lib.vnTrader as vnTrader
 
+import lib.vnTrader as vnTrader
+import pydevd
+pydevd.settrace('192.168.1.5', port=52727, stdoutToServer=True, stderrToServer=True)
 
 def main():
     """主程序入口"""
 
-
-    mainEngine = vnTrader.vtEngine.MainEngine()
-    mainEngine.run()
+    print 'a'
+    main_engine = vnTrader.vtEngine.MainEngine()
+    print 'b'
+    main_engine.connect('CTP')
 
 if __name__ == '__main__':
     main()
