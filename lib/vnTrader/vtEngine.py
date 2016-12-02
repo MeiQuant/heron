@@ -54,12 +54,6 @@ class MainEngine(object):
             self.gatewayDict['CTP'].setQryEnabled(True)
         except Exception, e:
             print e
-        
-        try:
-            from windGateway.windGateway import WindGateway
-            self.addGateway(WindGateway, 'Wind') 
-        except Exception, e:
-            print e
 
     # ----------------------------------------------------------------------
     def addGateway(self, gateway, gatewayName=None):
@@ -71,7 +65,6 @@ class MainEngine(object):
         """连接特定名称的接口"""
         if gatewayName in self.gatewayDict:
             gateway = self.gatewayDict[gatewayName]
-            self.writeLog(u'I am here：%s' %gatewayName)
             gateway.connect()
         else:
             self.writeLog(u'接口不存在：%s' %gatewayName)

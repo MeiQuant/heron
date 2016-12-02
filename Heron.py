@@ -15,15 +15,15 @@ Heron
 
 
 import lib.vnTrader as vnTrader
-import pydevd
-pydevd.settrace('192.168.1.5', port=52727, stdoutToServer=True, stderrToServer=True)
+
+# import pydevd
+
+# pydevd.settrace('192.168.1.5', port=52727, stdoutToServer=True, stderrToServer=True)
 
 def main():
     """主程序入口"""
 
-    print 'a'
     main_engine = vnTrader.vtEngine.MainEngine()
-    print 'b'
     main_engine.connect('CTP')
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ from datetime import datetime
 from vnctpmd import MdApi
 from vnctptd import TdApi
 from ctpDataType import *
-from vtGateway import *
+from lib.vnTrader.vtGateway import *
 
 
 # 以下为一些VT类型和CTP类型的映射字典
@@ -128,8 +128,7 @@ class CtpGateway(VtGateway):
         
         # 初始化并启动查询
         self.initQuery()
-        print 'c'
-    
+
     #----------------------------------------------------------------------
     def subscribe(self, subscribeReq):
         """订阅行情"""
