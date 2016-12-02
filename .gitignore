@@ -1,2 +1,7 @@
 .DS_Store
 .idea/
+temp/
+*.pyc
+*.vt.dat
+*.vt.bak
+*.vt.dir
