@@ -7,32 +7,10 @@
 
 """
 import sys
-import constant
 
+from heron.lib.utils import ConstantBase
 
-class _Const:
-    """常量限制类"""
-    def __init__(self):
-        pass
-
-    class ConstError(TypeError):
-        def __init__(self):
-            pass
-        pass
-
-    class ConstCaseError(ConstError):
-        def __init__(self):
-            pass
-        pass
-
-    def __setattr__(self, key, value):
-        if self.__dict__.has_key(key):
-            raise self.ConstError, "Can't change const. %s" % key
-        if not key.isupper():
-            raise self.ConstCaseError, "const name %s is not all uppercase" % key
-        self.__dict__[key] = value
-
-sys.modules[__name__] = _Const()
+constant = ConstantBase()
 
 # 默认空值
 constant.EMPTY_STRING = ''
@@ -113,3 +91,6 @@ constant.CURRENCY_USD = 'USD'            # 美元
 constant.CURRENCY_CNY = 'CNY'            # 人民币
 constant.CURRENCY_UNKNOWN = 'UNKNOWN'    # 未知货币
 constant.CURRENCY_NONE = ''              # 空货币
+
+# 继续返回constant实例
+sys.modules[__name__] = constant

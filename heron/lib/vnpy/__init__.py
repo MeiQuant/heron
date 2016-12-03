@@ -7,3 +7,6 @@ vn.py package
 """
 
 import constant
+import data
+import engine
+import event

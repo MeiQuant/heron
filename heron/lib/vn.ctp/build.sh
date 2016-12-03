@@ -12,6 +12,6 @@ cmake ..
 make VERBOSE=1 -j 1
 ln -fs `pwd`/lib/vnctpmd.so ../vnctpmd/test/vnctpmd.so
 ln -fs `pwd`/lib/vnctptd.so ../vnctptd/test/vnctptd.so
-cp ../vnctpmd/test/vnctpmd.* ../../vnTrader/ctpGateway/
-cp ../vnctptd/test/vnctptd.* ../../vnTrader/ctpGateway/
+cp ../vnctpmd/test/vnctpmd.* ././../vnpy/gateway/ctp/
+cp ../vnctptd/test/vnctptd.* ././../vnpy/gateway/ctp/
 popd
