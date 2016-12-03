@@ -5,26 +5,26 @@ Heron
 ----
 程序主入口
 
-* 启动之后自动连接CTP柜台
+* 登录柜台
 
-* 行情Server单独启一个线程
+* 启动行情接受线程
 
-* 与客户端握手之后,推送tick数据
+* 启动socket.io服务端
 
 """
 
 
-import lib.vnTrader as vnTrader
+import sys
+
 
 # import pydevd
-
 # pydevd.settrace('192.168.1.5', port=52727, stdoutToServer=True, stderrToServer=True)
+
 
 def main():
     """主程序入口"""
-
-    main_engine = vnTrader.vtEngine.MainEngine()
-    main_engine.connect('CTP')
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
 if __name__ == '__main__':
     main()
