@@ -4,3 +4,4 @@
 """
 
 from engine import EventEngine
+from event import Event

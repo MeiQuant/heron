@@ -4,6 +4,7 @@
 交易接口基础类
 """
 
+from heron.lib.vnpy.event import Event
 
 class GatewayBase(object):
     """交易接口"""

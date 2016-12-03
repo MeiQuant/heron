@@ -9,6 +9,9 @@ from trade import Trade
 from order import Order
 from position import Position
 from error import Error
+from log import Log
+from account import Account
+from contract import Contract
 
 # 请求相关类
 from request.subscribe import SubscribeReq
