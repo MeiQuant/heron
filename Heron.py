@@ -15,6 +15,7 @@ Heron
 
 
 import sys
+import heron.server as server
 
 
 # import pydevd
@@ -25,6 +26,8 @@ def main():
     """主程序入口"""
     reload(sys)
     sys.setdefaultencoding('utf-8')
+
+    server.start()
 
 if __name__ == '__main__':
     main()
