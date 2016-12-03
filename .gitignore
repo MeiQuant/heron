@@ -1,7 +1,12 @@
 .DS_Store
 .idea/
 temp/
-*.pyc
+*.py[co]
 *.vt.dat
 *.vt.bak
 *.vt.dir
+
+.vagrant
+
+# Built documentation
+docs/build/*
