@@ -127,3 +127,15 @@ class EventEngine(object):
     def put(self, event):
         """向事件队列中存入事件"""
         self.__queue.put(event)
+
+    # todo 实现自定义事件bind与trigger相关业务
+    # ------------------------------------------------------------------------
+    def bind(self, name, handler):
+        pass
+
+    def unbind(self, neme, handler):
+        pass
+
+    def trigger(self, name):
+        pass
+
