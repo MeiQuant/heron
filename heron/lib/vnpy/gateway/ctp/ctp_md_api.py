@@ -55,7 +55,7 @@ class CtpMdApi(MdApi):
 
         log = Log()
         log.gatewayName = self.gatewayName
-        log.logContent = u'行情服务器连接断开'
+        log.logContent = u"行情服务器连接断开"
         self.gateway.onLog(log)
 
         # ----------------------------------------------------------------------

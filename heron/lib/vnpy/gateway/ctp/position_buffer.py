@@ -8,6 +8,8 @@ from copy import copy
 from heron.lib.vnpy.constant import EMPTY_INT, EMPTY_FLOAT
 from heron.lib.vnpy.data import Position
 
+from mapping import posiDirectionMapReverse
+
 class PositionBuffer(object):
     """用来缓存持仓的数据，处理上期所的数据返回分今昨的问题"""
 
