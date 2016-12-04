@@ -1,0 +1,4 @@
+/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/rebuild_cache.dir
+/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/vnctptd.dir
+/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/edit_cache.dir
+/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/vnctpmd.dir

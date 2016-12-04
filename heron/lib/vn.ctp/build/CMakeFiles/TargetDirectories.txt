@@ -1,4 +1,0 @@
-/var/local/Heron/lib/vn.ctp/build/CMakeFiles/rebuild_cache.dir
-/var/local/Heron/lib/vn.ctp/build/CMakeFiles/vnctptd.dir
-/var/local/Heron/lib/vn.ctp/build/CMakeFiles/edit_cache.dir
-/var/local/Heron/lib/vn.ctp/build/CMakeFiles/vnctpmd.dir
