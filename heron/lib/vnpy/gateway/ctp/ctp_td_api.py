@@ -955,4 +955,10 @@ class CtpTdApi(TdApi):
     # ----------------------------------------------------------------------
     def close(self):
         """关闭"""
+        if self.userID and self.brokerID:
+            req = {}
+            req['UserID'] = self.userID
+            req['BrokerID'] = self.brokerID
+            self.reqID += 1
+            self.reqUserLogout(req, self.reqID)
         self.exit()

@@ -39,5 +39,6 @@ class TestCtpGateway(unittest.TestCase):
 
         sleep(5)
 
+        # todo 确认关闭前退出的实现方式，目前测试失败
         self.assertFalse(self.gateway.mdConnected)
         self.assertFalse(self.gateway.tdConnected)
