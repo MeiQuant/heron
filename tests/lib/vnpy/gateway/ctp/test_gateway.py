@@ -8,6 +8,7 @@ from heron.lib.vnpy.event import EventEngine
 from heron.lib.vnpy.event.type import EVENT_LOG
 
 import unittest
+from time import sleep
 
 
 def print_log(event):
@@ -23,11 +24,20 @@ class TestCtpGateway(unittest.TestCase):
         self.event_engine.register(EVENT_LOG, print_log)
         self.gateway = CtpGateway(self.event_engine)
 
-    def test_connect(self):
+    def test_connect_close(self):
 
         self.gateway.connect()
+
+        sleep(3)
 
         self.assertTrue(self.gateway.mdConnected)
         self.assertTrue(self.gateway.tdConnected)
 
+        sleep(5)
+
         self.gateway.close()
+
+        sleep(5)
+
+        self.assertFalse(self.gateway.mdConnected)
+        self.assertFalse(self.gateway.tdConnected)
