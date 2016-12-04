@@ -1,6 +1,7 @@
 # encoding: UTF-8
 """
 主引擎
+vnpy交易系统的主入口
 """
 
 from collections import OrderedDict
@@ -17,6 +18,7 @@ from heron.lib.vnpy.settings import load_setting
 from data import DataEngine
 from data_record import DataRecordEngine
 from risk import RiskManagerEngine
+
 
 class MainEngine(object):
     """主引擎"""

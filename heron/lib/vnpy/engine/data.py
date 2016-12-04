@@ -5,7 +5,7 @@
 
 import shelve
 
-from heron.lib.vnpy.event.type import EVENT_CONTRACT, EVENT_ORDER
+from heron.lib.vnpy.event import EVENT_CONTRACT, EVENT_ORDER
 from heron.lib.vnpy.constant import STATUS_CANCELLED, STATUS_ALLTRADED
 
 

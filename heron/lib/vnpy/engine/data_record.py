@@ -3,10 +3,11 @@
 数据记录引擎
 """
 
+import copy
+
 from datetime import datetime
 from Queue import Queue, Empty
 from threading import Thread
-from copy import copy
 
 from heron.lib.vnpy.data import SubscribeReq, Tick, Bar, Log
 from heron.lib.vnpy.event.type import EVENT_TICK, EVENT_DATARECORDER_LOG

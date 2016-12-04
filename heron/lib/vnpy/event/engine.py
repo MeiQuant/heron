@@ -8,7 +8,7 @@ from threading import Thread
 from time import sleep
 from collections import defaultdict
 
-from type import *
+from type import EVENT_TIMER
 from event import Event
 
 

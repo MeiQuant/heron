@@ -5,6 +5,7 @@
 """
 
 from heron.lib.vnpy.event import Event
+from heron.lib.vnpy.event.type import *
 
 class GatewayBase(object):
     """交易接口"""
