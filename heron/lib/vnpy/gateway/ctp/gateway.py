@@ -3,12 +3,10 @@
 CTP接口实现
 """
 
-import os
-import json
-
 from heron.lib.vnpy.data import Log
 from heron.lib.vnpy.gateway import GatewayBase
 from heron.lib.vnpy.event.type import EVENT_TIMER
+from heron.lib.vnpy.settings import load_setting
 
 from ctp_md_api import CtpMdApi
 from ctp_td_api import CtpTdApi
@@ -33,22 +31,8 @@ class CtpGateway(GatewayBase):
     # ----------------------------------------------------------------------
     def connect(self):
         """连接"""
-        # 载入json文件
-        fileName = self.gatewayName + '_connect.json'
-        path = os.path.abspath(os.path.dirname(__file__))
-        fileName = os.path.join(path, fileName)
-
-        try:
-            f = file(fileName)
-        except IOError:
-            log = Log()
-            log.gatewayName = self.gatewayName
-            log.logContent = u'读取连接配置出错，请检查'
-            self.onLog(log)
-            return
-
-        # 解析json文件
-        setting = json.load(f)
+        # 读取配置, todo 服务器地址由客户端传入
+        setting = load_setting('CTP')
         try:
             userID = str(setting['userID'])
             password = str(setting['password'])

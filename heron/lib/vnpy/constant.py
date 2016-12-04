@@ -92,5 +92,11 @@ constant.CURRENCY_CNY = 'CNY'            # 人民币
 constant.CURRENCY_UNKNOWN = 'UNKNOWN'    # 未知货币
 constant.CURRENCY_NONE = ''              # 空货币
 
+# 数据库名称
+SETTING_DB_NAME = 'VnTrader_Setting_Db'
+TICK_DB_NAME = 'VnTrader_Tick_Db'
+DAILY_DB_NAME = 'VnTrader_Daily_Db'
+MINUTE_DB_NAME = 'VnTrader_1Min_Db'
+
 # 继续返回constant实例
 sys.modules[__name__] = constant

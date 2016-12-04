@@ -1,0 +1,63 @@
+{
+  "CTP" : {
+    "brokerID": "9999",
+    "tdAddress": "tcp://180.168.146.187:10000",
+    "password": "123456",
+    "mdAddress": "tcp://180.168.146.187:10010",
+    "userID": "074047"
+  },
+
+  "MongoDB" :{
+    "host": "192.168。1.3",
+    "port": "270271"
+  },
+
+  "DataRecord": {
+    "working": false,
+
+    "dbName" : {
+      "setting": "VnTrader_Setting_Db",
+      "tick": "VnTrader_Tick_Db",
+      "daily": "VnTrader_Daily_Db",
+      "minute": "VnTrader_1Min_Db"
+    },
+
+    "tick":
+    [
+        ["m1609", "XSPEED"],
+        ["IF1606", "SGIT"],
+        ["IH1606", "SGIT"],
+        ["IH1606", "SGIT"],
+        ["IC1606", "SGIT"],
+        ["IC1606", "SGIT"],
+        ["600036", "LTS", "SZSE"],
+        ["EUR.USD", "IB", "IDEALPRO", "USD", "外汇"]
+    ],
+
+    "bar":
+    [
+        ["IF1605", "SGIT"],
+        ["IF1606", "SGIT"],
+        ["IH1606", "SGIT"],
+        ["IH1606", "SGIT"],
+        ["IC1606", "SGIT"],
+        ["IC1606", "SGIT"]
+    ],
+
+    "active":
+    {
+    	"IF0000": "IF1605",
+        "IH0000": "IH1605",
+        "IC0000": "IC1605"
+    }
+  },
+
+  "RiskManager": {
+    "orderFlowClear": 1,
+    "workingOrderLimit": 20,
+    "tradeLimit": 100,
+    "orderSizeLimit": 10,
+    "active": true,
+    "orderFlowLimit": 10
+  }
+}
