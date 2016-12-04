@@ -952,13 +952,16 @@ class CtpTdApi(TdApi):
 
         self.reqOrderAction(req, self.reqID)
 
-    # ----------------------------------------------------------------------
-    def close(self):
-        """关闭"""
+    def logout(self):
+        """用户退出"""
         if self.userID and self.brokerID:
             req = {}
             req['UserID'] = self.userID
             req['BrokerID'] = self.brokerID
             self.reqID += 1
             self.reqUserLogout(req, self.reqID)
+
+    # ----------------------------------------------------------------------
+    def close(self):
+        """关闭"""
         self.exit()
