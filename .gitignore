@@ -6,6 +6,8 @@ temp/
 *.vt.bak
 *.vt.dir
 
+*.con
+
 .vagrant
 
 # Built documentation
