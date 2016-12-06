@@ -1,3 +1,4 @@
 #!/bin/bash
 
-# install Anaconda, nginx, mongodb etc.
+# install cmake, Anaconda, nginx, mongodb etc.
+
