@@ -3,9 +3,13 @@
 日期工具函数
 """
 
-from datetime import datetime
+from datetime import date, datetime
 
 
 def today():
     """获取当前本机电脑时间的日期"""
-    return datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    return date.today().isoformat()
+
+
+def now():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")

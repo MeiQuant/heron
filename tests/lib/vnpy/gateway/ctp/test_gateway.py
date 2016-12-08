@@ -13,7 +13,7 @@ from time import sleep
 
 def print_log(event):
     log = event.dict_['data']
-    print u":".join([log.logTime, log.logContent]).encode('utf-8')
+    print u":".join([log.time, log.content]).encode('utf-8')
 
 
 class TestCtpGateway(unittest.TestCase):

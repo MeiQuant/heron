@@ -49,7 +49,7 @@ class CtpTdApi(TdApi):
 
         log = Log()
         log.gatewayName = self.gatewayName
-        log.logContent = u'交易服务器连接成功'
+        log.content = u'交易服务器连接成功'
         self.gateway.onLog(log)
 
         self.login()
@@ -63,7 +63,7 @@ class CtpTdApi(TdApi):
 
         log = Log()
         log.gatewayName = self.gatewayName
-        log.logContent = u'交易服务器连接断开'
+        log.content = u'交易服务器连接断开'
         self.gateway.onLog(log)
 
         # ----------------------------------------------------------------------
@@ -89,7 +89,7 @@ class CtpTdApi(TdApi):
 
             log = Log()
             log.gatewayName = self.gatewayName
-            log.logContent = u'交易服务器登录完成'
+            log.content = u'交易服务器登录完成'
             self.gateway.onLog(log)
 
             # 确认结算信息
@@ -117,7 +117,7 @@ class CtpTdApi(TdApi):
 
             log = Log()
             log.gatewayName = self.gatewayName
-            log.logContent = u'交易服务器登出完成'
+            log.content = u'交易服务器登出完成'
             self.gateway.onLog(log)
 
         # 否则，推送错误信息
@@ -176,7 +176,7 @@ class CtpTdApi(TdApi):
         """确认结算信息回报"""
         log = Log()
         log.gatewayName = self.gatewayName
-        log.logContent = u'结算信息确认完成'
+        log.content = u'结算信息确认完成'
         self.gateway.onLog(log)
 
         # 查询合约代码
@@ -356,7 +356,7 @@ class CtpTdApi(TdApi):
         if last:
             log = Log()
             log.gatewayName = self.gatewayName
-            log.logContent = u'交易合约信息获取完成'
+            log.content = u'交易合约信息获取完成'
             self.gateway.onLog(log)
 
     # ----------------------------------------------------------------------

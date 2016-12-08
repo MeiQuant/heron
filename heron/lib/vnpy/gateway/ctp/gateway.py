@@ -42,7 +42,7 @@ class CtpGateway(GatewayBase):
         except KeyError:
             log = Log()
             log.gatewayName = self.gatewayName
-            log.logContent = u'连接配置缺少字段，请检查'
+            log.content = u'连接配置缺少字段，请检查'
             self.onLog(log)
             return
 

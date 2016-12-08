@@ -42,7 +42,7 @@ class CtpMdApi(MdApi):
 
         log = Log()
         log.gatewayName = self.gatewayName
-        log.logContent = u'行情服务器连接成功'
+        log.content = u'行情服务器连接成功'
         self.gateway.onLog(log)
         self.login()
 
@@ -55,7 +55,7 @@ class CtpMdApi(MdApi):
 
         log = Log()
         log.gatewayName = self.gatewayName
-        log.logContent = u"行情服务器连接断开"
+        log.content = u"行情服务器连接断开"
         self.gateway.onLog(log)
 
         # ----------------------------------------------------------------------
@@ -84,7 +84,7 @@ class CtpMdApi(MdApi):
 
             log = Log()
             log.gatewayName = self.gatewayName
-            log.logContent = u'行情服务器登录完成'
+            log.content = u'行情服务器登录完成'
             self.gateway.onLog(log)
 
             # 重新订阅之前订阅的合约
@@ -109,7 +109,7 @@ class CtpMdApi(MdApi):
 
             log = Log()
             log.gatewayName = self.gatewayName
-            log.logContent = u'行情服务器登出完成'
+            log.content = u'行情服务器登出完成'
             self.gateway.onLog(log)
 
         # 否则，推送错误信息

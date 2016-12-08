@@ -12,26 +12,56 @@
 """
 
 from flask import Flask
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO
+
+from heron.lib.vnpy.engine.main import MainEngine
+from heron.lib.vnpy.event.type import EVENT_LOG
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
+dict = {}
 
-@socketio.on('my_event')
-def test_message(message):
-    emit('my_response', {'data': 'got it!'})
+# send log to client
+def send_log(self, event):
+    log = event.dict_['data']
+    socketio.emit('log', log.to_json())
+
+
+# start engine and connect to counter
+@socketio.on('system_start')
+def on_start(data):
+
+    engine = MainEngine()
+
+    # 注册日志事件
+    engine.eventEngine.register(EVENT_LOG, send_log)
+
+    engine.connect('CTP')
+
+    dict['engine'] = engine
+
+
+@socketio.on('system_exit')
+def on_close(data):
+
+    if 'engine' in dict:
+        dict['engine'].exit()
+    else:
+
+        socketio.emit('log', {})
 
 
 @socketio.on('connect')
-def handle_message(message):
-    print('received message: ' + message)
+def on_connect():
+    print('connected')
 
 
 def start():
     print 'start server...'
-    socketio.run(app)
+    socketio.run(app, host='192.168.33.10')
 
 
 

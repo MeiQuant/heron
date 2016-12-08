@@ -20,7 +20,7 @@ def simpletest(event):
 
 def print_log(event):
     log = event.dict_['data']
-    print ':'.join([log.logTime, log.logContent])
+    print ':'.join([log.time, log.logContent])
 
 
 class TestEventEnggine(unittest.TestCase):

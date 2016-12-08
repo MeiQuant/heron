@@ -49,77 +49,77 @@ class DataRecordEngine(object):
     # ----------------------------------------------------------------------
     def loadSetting(self):
         """载入设置"""
-        with load_setting('DataRecord') as drSetting:
+        drSetting = load_setting('DataRecord')
 
-            self.drSetting = drSetting
-            self.dbName = drSetting['dbName']
-            # 如果working设为False则不启动行情记录功能
-            working = drSetting['working']
-            if not working:
-                return
+        self.drSetting = drSetting
+        self.dbName = drSetting['dbName']
+        # 如果working设为False则不启动行情记录功能
+        working = drSetting['working']
+        if not working:
+            return
 
-            if 'tick' in drSetting:
-                l = drSetting['tick']
+        if 'tick' in drSetting:
+            l = drSetting['tick']
 
-                for setting in l:
-                    symbol = setting[0]
-                    vtSymbol = symbol
+            for setting in l:
+                symbol = setting[0]
+                vtSymbol = symbol
 
-                    req = SubscribeReq()
-                    req.symbol = setting[0]
+                req = SubscribeReq()
+                req.symbol = setting[0]
 
-                    # 针对LTS和IB接口，订阅行情需要交易所代码
-                    if len(setting) >= 3:
-                        req.exchange = setting[2]
-                        vtSymbol = '.'.join([symbol, req.exchange])
+                # 针对LTS和IB接口，订阅行情需要交易所代码
+                if len(setting) >= 3:
+                    req.exchange = setting[2]
+                    vtSymbol = '.'.join([symbol, req.exchange])
 
-                    # 针对IB接口，订阅行情需要货币和产品类型
-                    if len(setting) >= 5:
-                        req.currency = setting[3]
-                        req.productClass = setting[4]
+                # 针对IB接口，订阅行情需要货币和产品类型
+                if len(setting) >= 5:
+                    req.currency = setting[3]
+                    req.productClass = setting[4]
 
-                    self.mainEngine.subscribe(req, setting[1])
+                self.mainEngine.subscribe(req, setting[1])
 
-                    drTick = Tick()  # 该tick实例可以用于缓存部分数据（目前未使用）
-                    self.tickDict[vtSymbol] = drTick
+                drTick = Tick()  # 该tick实例可以用于缓存部分数据（目前未使用）
+                self.tickDict[vtSymbol] = drTick
 
-            if 'bar' in drSetting:
-                l = drSetting['bar']
+        if 'bar' in drSetting:
+            l = drSetting['bar']
 
-                for setting in l:
-                    symbol = setting[0]
-                    vtSymbol = symbol
+            for setting in l:
+                symbol = setting[0]
+                vtSymbol = symbol
 
-                    req = SubscribeReq()
-                    req.symbol = symbol
+                req = SubscribeReq()
+                req.symbol = symbol
 
-                    if len(setting) >= 3:
-                        req.exchange = setting[2]
-                        vtSymbol = '.'.join([symbol, req.exchange])
+                if len(setting) >= 3:
+                    req.exchange = setting[2]
+                    vtSymbol = '.'.join([symbol, req.exchange])
 
-                    if len(setting) >= 5:
-                        req.currency = setting[3]
-                        req.productClass = setting[4]
+                if len(setting) >= 5:
+                    req.currency = setting[3]
+                    req.productClass = setting[4]
 
-                    self.mainEngine.subscribe(req, setting[1])
+                self.mainEngine.subscribe(req, setting[1])
 
-                    bar = Bar()
-                    self.barDict[vtSymbol] = bar
+                bar = Bar()
+                self.barDict[vtSymbol] = bar
 
-            if 'active' in drSetting:
-                d = drSetting['active']
+        if 'active' in drSetting:
+            d = drSetting['active']
 
-                # 注意这里的vtSymbol对于IB和LTS接口，应该后缀.交易所
-                for activeSymbol, vtSymbol in d.items():
-                    self.activeSymbolDict[vtSymbol] = activeSymbol
+            # 注意这里的vtSymbol对于IB和LTS接口，应该后缀.交易所
+            for activeSymbol, vtSymbol in d.items():
+                self.activeSymbolDict[vtSymbol] = activeSymbol
 
-            # 启动数据插入线程
-            self.start()
+        # 启动数据插入线程
+        self.start()
 
-            # 注册事件监听
-            self.registerEvent()
+        # 注册事件监听
+        self.registerEvent()
 
-            # ----------------------------------------------------------------------
+        # ----------------------------------------------------------------------
 
     def procecssTickEvent(self, event):
         """处理行情推送"""
@@ -226,7 +226,7 @@ class DataRecordEngine(object):
     def writeDrLog(self, content):
         """快速发出日志事件"""
         log = Log()
-        log.logContent = content
+        log.content = content
         event = Event(type_=EVENT_DATARECORDER_LOG)
         event.dict_['data'] = log
         self.eventEngine.put(event)

@@ -3,9 +3,11 @@
 日志
 """
 
-import time
 
 from heron.lib.vnpy.constant import EMPTY_UNICODE
+from heron.lib.utils.date import now
+
+
 
 from base import Base
 
@@ -16,5 +18,5 @@ class Log(Base):
         """Constructor"""
         super(Log, self).__init__()
 
-        self.logTime = time.strftime('%X', time.localtime())    # 日志生成时间
-        self.logContent = EMPTY_UNICODE                         # 日志信息
+        self.time = now()    # 日志生成时间
+        self.content = EMPTY_UNICODE                         # 日志信息

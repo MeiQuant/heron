@@ -50,19 +50,19 @@ class RiskManagerEngine(object):
     # ----------------------------------------------------------------------
     def loadSetting(self):
         """读取配置"""
-        with load_setting('RiskManager') as d:
+        d = load_setting('RiskManager')
 
-            # 设置风控参数
-            self.active = d['active']
+        # 设置风控参数
+        self.active = d['active']
 
-            self.orderFlowLimit = d['orderFlowLimit']
-            self.orderFlowClear = d['orderFlowClear']
+        self.orderFlowLimit = d['orderFlowLimit']
+        self.orderFlowClear = d['orderFlowClear']
 
-            self.orderSizeLimit = d['orderSizeLimit']
+        self.orderSizeLimit = d['orderSizeLimit']
 
-            self.tradeLimit = d['tradeLimit']
+        self.tradeLimit = d['tradeLimit']
 
-            self.workingOrderLimit = d['workingOrderLimit']
+        self.workingOrderLimit = d['workingOrderLimit']
 
     # ----------------------------------------------------------------------
     # todo 将风控参数存入数据库，支持客户端读写
@@ -99,7 +99,7 @@ class RiskManagerEngine(object):
 
         # 发出日志事件
         log = Log()
-        log.logContent = content
+        log.content = content
         log.gatewayName = self.name
         event = Event(type_=EVENT_LOG)
         event.dict_['data'] = log

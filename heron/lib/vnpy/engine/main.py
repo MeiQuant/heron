@@ -147,7 +147,7 @@ class MainEngine(object):
     def writeLog(self, content):
         """快速发出日志事件"""
         log = Log()
-        log.logContent = content
+        log.content = content
         event = Event(type_=EVENT_LOG)
         event.dict_['data'] = log
         self.eventEngine.put(event)

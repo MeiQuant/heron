@@ -12,6 +12,7 @@ from type import EVENT_TIMER
 from event import Event
 
 
+#  todo 保证单例
 class EventEngine(object):
     """
     计时器使用python线程的事件驱动引擎
