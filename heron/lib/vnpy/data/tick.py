@@ -61,3 +61,4 @@ class Tick(Base):
         self.askVolume3 = EMPTY_INT
         self.askVolume4 = EMPTY_INT
         self.askVolume5 = EMPTY_INT
+

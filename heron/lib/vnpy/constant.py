@@ -66,7 +66,8 @@ constant.OPTION_PUT = u'看跌期权'
 # 交易所类型
 constant.EXCHANGE_SSE = 'SSE'       # 上交所
 constant.EXCHANGE_SZSE = 'SZSE'     # 深交所
-constant.EXCHANGE_CFFEX = 'CFFEX'   # 中金所
+constant.EXCHANGE_CFFEX = 'CFF' \
+                          'EX'   # 中金所
 constant.EXCHANGE_SHFE = 'SHFE'     # 上期所
 constant.EXCHANGE_CZCE = 'CZCE'     # 郑商所
 constant.EXCHANGE_DCE = 'DCE'       # 大商所

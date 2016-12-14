@@ -86,6 +86,12 @@ class CtpGateway(GatewayBase):
         if self.tdConnected:
             self.tdApi.close()
 
+        # todo 确认断开之后再生成log
+        log = Log()
+        log.gatewayName = self.gatewayName
+        log.content = u'已断开与柜台的通信'
+        self.onLog(log)
+
     # ----------------------------------------------------------------------
     def initQuery(self):
         """初始化连续查询"""

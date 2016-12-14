@@ -9,8 +9,9 @@ from datetime import datetime
 from vnctpmd import MdApi
 
 from heron.lib.vnpy.data import Log, Error, Tick
+from heron.lib.vnpy.constant import EMPTY_INT, EMPTY_STRING
 
-from mapping import *
+from mapping import exchangeMapReverse
 
 class CtpMdApi(MdApi):
     """CTP行情API实现"""
@@ -140,6 +141,7 @@ class CtpMdApi(MdApi):
         tick.gatewayName = self.gatewayName
 
         tick.symbol = data['InstrumentID']
+        # CTP接口盘后订阅行情，ExchangeID为空...最后一笔置为空
         tick.exchange = exchangeMapReverse.get(data['ExchangeID'], u'未知')
         tick.vtSymbol = tick.symbol  # '.'.join([tick.symbol, EXCHANGE_UNKNOWN])
 
@@ -150,7 +152,7 @@ class CtpMdApi(MdApi):
 
         # 这里由于交易所夜盘时段的交易日数据有误，所以选择本地获取
         # tick.date = data['TradingDay']
-        tick.date = datetime.now().strftime('%Y%m%d')
+        tick.date = datetime.now().strftime('%Y-%m-%d')
 
         tick.openPrice = data['OpenPrice']
         tick.highPrice = data['HighestPrice']

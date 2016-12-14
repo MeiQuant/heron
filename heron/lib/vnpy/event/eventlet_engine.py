@@ -1,16 +1,17 @@
 # encoding: UTF-8
 """
-事件引擎
+eventEngine based on eventlet
 """
 
-from Queue import Queue, Empty
-from threading import Thread
-from time import sleep
+
+from eventlet.green.Queue import Queue, Empty
+from eventlet.green.threading import Thread
+from eventlet import sleep
+
 from collections import defaultdict
 
 from type import EVENT_TIMER
 from event import Event
-
 
 
 class EventEngine(object):
@@ -128,5 +129,6 @@ class EventEngine(object):
     def put(self, event):
         """向事件队列中存入事件"""
         self.__queue.put(event)
+
 
 

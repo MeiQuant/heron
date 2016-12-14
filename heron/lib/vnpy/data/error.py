@@ -5,6 +5,7 @@
 import time
 
 from heron.lib.vnpy.constant import EMPTY_STRING, EMPTY_UNICODE
+from heron.lib.utils.date import now
 
 from base import Base
 
@@ -19,4 +20,7 @@ class Error(Base):
         self.errorMsg = EMPTY_UNICODE           # 错误信息
         self.additionalInfo = EMPTY_UNICODE     # 补充信息
 
-        self.errorTime = time.strftime('%X', time.localtime())    # 错误生成时间
+        self.errorTime = now()   # 错误生成时间
+
+        # 用于客户端分辨消息类型
+        self.isError = True
