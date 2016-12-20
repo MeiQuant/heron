@@ -10,6 +10,7 @@ from vnctptd import TdApi
 from heron.lib.vnpy.data import Log, Error, Account, Contract, Order, Trade
 
 from mapping import *
+from heron.lib.vnpy.constant import *
 from position_buffer import PositionBuffer
 
 
@@ -900,9 +901,9 @@ class CtpTdApi(TdApi):
         req['VolumeTotalOriginal'] = orderReq.volume
 
         # 下面如果由于传入的类型本接口不支持，则会返回空字符串
-        req['OrderPriceType'] = priceTypeMap.get(orderReq.priceType, '')
-        req['Direction'] = directionMap.get(orderReq.direction, '')
-        req['CombOffsetFlag'] = offsetMap.get(orderReq.offset, '')
+        req['OrderPriceType'] = priceTypeMap_.get(orderReq.priceType, '')
+        req['Direction'] = directionMap_.get(orderReq.direction, '')
+        req['CombOffsetFlag'] = offsetMap_.get(orderReq.offset, '')
 
         req['OrderRef'] = str(self.orderRef)
         req['InvestorID'] = self.userID
@@ -931,6 +932,8 @@ class CtpTdApi(TdApi):
 
         # 返回订单号（字符串），便于某些算法进行动态管理
         vtOrderID = '.'.join([self.gatewayName, str(self.orderRef)])
+        print orderReq.__dict__
+        print req
         return vtOrderID
 
     # ----------------------------------------------------------------------
@@ -951,6 +954,7 @@ class CtpTdApi(TdApi):
         req['InvestorID'] = self.userID
 
         self.reqOrderAction(req, self.reqID)
+        print req
 
     def logout(self):
         """用户退出"""

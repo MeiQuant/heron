@@ -29,7 +29,7 @@ class GatewayBase(object):
         event2.dict_['data'] = tick
         self.eventEngine.put(event2)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def onTrade(self, trade):
         """成交信息推送"""
         # 通用事件
@@ -42,7 +42,7 @@ class GatewayBase(object):
         event2.dict_['data'] = trade
         self.eventEngine.put(event2)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def onOrder(self, order):
         """订单变化推送"""
         # 通用事件
@@ -55,7 +55,7 @@ class GatewayBase(object):
         event2.dict_['data'] = order
         self.eventEngine.put(event2)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def onPosition(self, position):
         """持仓信息推送"""
         # 通用事件
@@ -68,7 +68,7 @@ class GatewayBase(object):
         event2.dict_['data'] = position
         self.eventEngine.put(event2)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def onAccount(self, account):
         """账户信息推送"""
         # 通用事件
@@ -81,7 +81,7 @@ class GatewayBase(object):
         event2.dict_['data'] = account
         self.eventEngine.put(event2)
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def onError(self, error):
         """错误信息推送"""
         # 通用事件

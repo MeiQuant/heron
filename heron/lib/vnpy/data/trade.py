@@ -12,7 +12,7 @@ class Trade(Base):
 
     def __init__(self):
         """Constructor"""
-        super(TradeData, self).__init__()
+        super(Trade, self).__init__()
 
         # 代码编号相关
         self.symbol = EMPTY_STRING              # 合约代码
