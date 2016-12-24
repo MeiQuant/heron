@@ -2,7 +2,7 @@
   "CTP": {
     "brokerID": "9999",
     "tdAddress": "tcp://180.168.146.187:10000",
-    "password": "7663508",
+    "password": "123456",
     "mdAddress": "tcp://180.168.146.187:10010",
     "userID": "074047"
   },
