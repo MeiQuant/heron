@@ -228,5 +228,5 @@ def on_connect():
 
 def start():
     print 'start server...'
-    socketio.run(app, host='192.168.33.10')
+    socketio.run(app)
     # socketio.run(app)

@@ -59,7 +59,7 @@ if (BUILD_CTP_TD)
   add_library(vnctptd SHARED ${VN_CTP_TD_SOURCE})  
 endif()
 
-# 设置Python所在的目录
+# 设置Python所在的目录python
 set(PYTHON_LIBRARY )
 if (WIN32)
 set(PYTHON_INCLUDE_PATH C:/Python27/include)
