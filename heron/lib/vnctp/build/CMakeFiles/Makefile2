@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp
+CMAKE_SOURCE_DIR = /var/local/Heron/heron/lib/vnctp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build
+CMAKE_BINARY_DIR = /var/local/Heron/heron/lib/vnctp/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/vnctptd.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build
 CMakeFiles/vnctptd.dir/all:
 	$(MAKE) -f CMakeFiles/vnctptd.dir/build.make CMakeFiles/vnctptd.dir/depend
 	$(MAKE) -f CMakeFiles/vnctptd.dir/build.make CMakeFiles/vnctptd.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles --progress-num=3,4 "Built target vnctptd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/var/local/Heron/heron/lib/vnctp/build/CMakeFiles --progress-num=3,4 "Built target vnctptd"
 .PHONY : CMakeFiles/vnctptd.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/vnctptd.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vnctptd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /var/local/Heron/heron/lib/vnctp/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/vnctptd.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /var/local/Heron/heron/lib/vnctp/build/CMakeFiles 0
 .PHONY : CMakeFiles/vnctptd.dir/rule
 
 # Convenience name for target.
@@ -103,7 +103,7 @@ clean: CMakeFiles/vnctptd.dir/clean
 CMakeFiles/vnctpmd.dir/all:
 	$(MAKE) -f CMakeFiles/vnctpmd.dir/build.make CMakeFiles/vnctpmd.dir/depend
 	$(MAKE) -f CMakeFiles/vnctpmd.dir/build.make CMakeFiles/vnctpmd.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles --progress-num=1,2 "Built target vnctpmd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/var/local/Heron/heron/lib/vnctp/build/CMakeFiles --progress-num=1,2 "Built target vnctpmd"
 .PHONY : CMakeFiles/vnctpmd.dir/all
 
 # Include target in all.
@@ -113,9 +113,9 @@ all: CMakeFiles/vnctpmd.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vnctpmd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /var/local/Heron/heron/lib/vnctp/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/vnctpmd.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /var/local/Heron/heron/lib/vnctp/build/CMakeFiles 0
 .PHONY : CMakeFiles/vnctpmd.dir/rule
 
 # Convenience name for target.

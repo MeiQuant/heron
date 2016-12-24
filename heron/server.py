@@ -13,15 +13,15 @@
 
 from flask import Flask
 from flask_socketio import SocketIO
+import eventlet
+
 
 from heron.lib.vnpy.engine.main import MainEngine
 from heron.lib.vnpy.event.type import EVENT_LOG, EVENT_TICK, EVENT_ERROR, EVENT_ORDER, EVENT_TRADE, EVENT_POSITION
 from heron.lib.vnpy.data import Log, SubscribeReq, OrderReq, CancelOrderReq
 
-
-# import pydevd
-
-# pydevd.settrace('192.168.1.11', port=2333, stdoutToServer=True, stderrToServer=True)
+# patch the socket module by eventlet to support multiple workers
+eventlet.monkey_patch(socket=True)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -191,11 +191,12 @@ def get_position():
 
 # start engine and connect to counter
 @socketio.on('system_start', namespace='/system')
-def on_start():
+def on_start(config):
 
     engine = MainEngine()
 
-    engine.connect('CTP')
+    # todo 依据传入的柜台服务器地址建立连接
+    engine.connect('CTP', config)
 
     dicts['engine'] = engine
 

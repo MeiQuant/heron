@@ -29,10 +29,9 @@ class CtpGateway(GatewayBase):
         self.qryEnabled = False  # 是否要启动循环查询
 
     # ----------------------------------------------------------------------
-    def connect(self):
+    def connect(self, config):
         """连接"""
-        # 读取配置, todo 服务器地址由客户端传入
-        setting = load_setting('CTP')
+        setting = config or load_setting('CTP')
         try:
             userID = str(setting['userID'])
             password = str(setting['password'])
@@ -46,7 +45,7 @@ class CtpGateway(GatewayBase):
             self.onLog(log)
             return
 
-            # 创建行情和交易接口对象
+        # 创建行情和交易接口对象
         self.mdApi.connect(userID, password, brokerID, mdAddress)
         self.tdApi.connect(userID, password, brokerID, tdAddress)
 

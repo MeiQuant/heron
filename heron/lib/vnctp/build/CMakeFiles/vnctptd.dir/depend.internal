@@ -5,7 +5,7 @@ CMakeFiles/vnctptd.dir/vnctptd/vnctptd/vnctptd.cpp.o
  ../ctpapi/x64_linux/ThostFtdcTraderApi.h
  ../ctpapi/x64_linux/ThostFtdcUserApiDataType.h
  ../ctpapi/x64_linux/ThostFtdcUserApiStruct.h
- /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctptd/vnctptd/stdafx.h
- /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctptd/vnctptd/targetver.h
- /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctptd/vnctptd/vnctptd.cpp
- /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctptd/vnctptd/vnctptd.h
+ /var/local/Heron/heron/lib/vnctp/vnctptd/vnctptd/stdafx.h
+ /var/local/Heron/heron/lib/vnctp/vnctptd/vnctptd/targetver.h
+ /var/local/Heron/heron/lib/vnctp/vnctptd/vnctptd/vnctptd.cpp
+ /var/local/Heron/heron/lib/vnctp/vnctptd/vnctptd/vnctptd.h

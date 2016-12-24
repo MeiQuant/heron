@@ -65,11 +65,11 @@ class MainEngine(object):
         self.gatewayDict[gatewayName] = gateway(self.eventEngine, gatewayName)
 
     # ----------------------------------------------------------------------
-    def connect(self, gatewayName):
+    def connect(self, gatewayName, config):
         """连接特定名称的接口"""
         if gatewayName in self.gatewayDict:
             gateway = self.gatewayDict[gatewayName]
-            gateway.connect()
+            gateway.connect(config)
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 

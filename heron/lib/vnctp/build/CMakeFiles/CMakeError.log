@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp
+Change Dir: /var/local/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_59ae3/fast"
-/usr/bin/make -f CMakeFiles/cmTC_59ae3.dir/build.make CMakeFiles/cmTC_59ae3.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_33ec5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_33ec5.dir/build.make CMakeFiles/cmTC_33ec5.dir/build
 make[1]: Entering directory '/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_59ae3.dir/CheckSymbolExists.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_59ae3.dir/CheckSymbolExists.c.o   -c /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_59ae3
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_59ae3.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_59ae3.dir/CheckSymbolExists.c.o  -o cmTC_59ae3 -rdynamic 
-CMakeFiles/cmTC_59ae3.dir/CheckSymbolExists.c.o: In function `main':
+Building C object CMakeFiles/cmTC_33ec5.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_33ec5.dir/CheckSymbolExists.c.o   -c /var/local/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_33ec5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_33ec5.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_33ec5.dir/CheckSymbolExists.c.o  -o cmTC_33ec5 -rdynamic 
+CMakeFiles/cmTC_33ec5.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_59ae3.dir/build.make:97: recipe for target 'cmTC_59ae3' failed
-make[1]: *** [cmTC_59ae3] Error 1
+CMakeFiles/cmTC_33ec5.dir/build.make:97: recipe for target 'cmTC_33ec5' failed
+make[1]: *** [cmTC_33ec5] Error 1
 make[1]: Leaving directory '/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_59ae3/fast' failed
-make: *** [cmTC_59ae3/fast] Error 2
+Makefile:126: recipe for target 'cmTC_33ec5/fast' failed
+make: *** [cmTC_33ec5/fast] Error 2
 
-File /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /var/local/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp
+Change Dir: /var/local/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_1fabf/fast"
-/usr/bin/make -f CMakeFiles/cmTC_1fabf.dir/build.make CMakeFiles/cmTC_1fabf.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_bfb49/fast"
+/usr/bin/make -f CMakeFiles/cmTC_bfb49.dir/build.make CMakeFiles/cmTC_bfb49.dir/build
 make[1]: Entering directory '/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_1fabf.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_1fabf.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
-Linking C executable cmTC_1fabf
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1fabf.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_1fabf.dir/CheckFunctionExists.c.o  -o cmTC_1fabf -rdynamic -lpthreads 
+Building C object CMakeFiles/cmTC_bfb49.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_bfb49.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_bfb49
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bfb49.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_bfb49.dir/CheckFunctionExists.c.o  -o cmTC_bfb49 -rdynamic -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_1fabf.dir/build.make:97: recipe for target 'cmTC_1fabf' failed
-make[1]: *** [cmTC_1fabf] Error 1
+CMakeFiles/cmTC_bfb49.dir/build.make:97: recipe for target 'cmTC_bfb49' failed
+make[1]: *** [cmTC_bfb49] Error 1
 make[1]: Leaving directory '/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_1fabf/fast' failed
-make: *** [cmTC_1fabf/fast] Error 2
+Makefile:126: recipe for target 'cmTC_bfb49/fast' failed
+make: *** [cmTC_bfb49/fast] Error 2
 
 

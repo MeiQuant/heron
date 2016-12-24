@@ -6,5 +6,5 @@ CXX_FLAGS =  -fPIC -std=c++11 -O3 -DNDEBUG -fPIC
 
 CXX_DEFINES = -DBUILD_CTP_MD -DBUILD_CTP_TD -DUSE_64BITS -Dvnctptd_EXPORTS
 
-CXX_INCLUDES = -I/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/ctpapi/x64_linux -I/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/CTP_MD_PATH -I/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/CTP_TD_PATH -I/usr/include/python2.7 
+CXX_INCLUDES = -I/var/local/Heron/heron/lib/vnctp/ctpapi/x64_linux -I/var/local/Heron/heron/lib/vnctp/CTP_MD_PATH -I/var/local/Heron/heron/lib/vnctp/CTP_TD_PATH -I/usr/include/python2.7 
 

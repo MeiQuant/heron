@@ -16,23 +16,23 @@ ThostFtdcUserApiStruct.h
 ThostFtdcUserApiDataType.h
 ../ctpapi/x64_linux/ThostFtdcUserApiDataType.h
 
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/stdafx.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/stdafx.h
 targetver.h
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/targetver.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/targetver.h
 windows.h
 -
 
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/targetver.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/targetver.h
 SDKDDKVer.h
 -
 
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.cpp
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.cpp
 vnctpmd.h
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.h
 
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.h
 stdafx.h
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/stdafx.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/stdafx.h
 string
 -
 queue
@@ -54,5 +54,5 @@ boost/bind.hpp
 boost/any.hpp
 -
 ThostFtdcMdApi.h
-/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/ThostFtdcMdApi.h
+/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/ThostFtdcMdApi.h
 

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.cpp" "/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/CMakeFiles/vnctpmd.dir/vnctpmd/vnctpmd/vnctpmd.cpp.o"
+  "/var/local/Heron/heron/lib/vnctp/vnctpmd/vnctpmd/vnctpmd.cpp" "/var/local/Heron/heron/lib/vnctp/build/CMakeFiles/vnctpmd.dir/vnctpmd/vnctpmd/vnctpmd.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

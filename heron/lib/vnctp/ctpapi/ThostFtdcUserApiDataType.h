@@ -492,6 +492,8 @@ typedef char TThostFtdcFunctionCodeType;
 #define THOST_FTDC_BFC_ParkedOrderInsert 'K'
 ///预埋报单操作
 #define THOST_FTDC_BFC_ParkedOrderAction 'L'
+///资金不够仍允许行权
+#define THOST_FTDC_BFC_ExecOrderNoCheck 'M'
 
 typedef char TThostFtdcBrokerFunctionCodeType;
 
@@ -688,6 +690,8 @@ typedef char TThostFtdcRatioAttrType;
 #define THOST_FTDC_HF_Hedge '3'
 ///备兑
 #define THOST_FTDC_HF_Covered '4'
+///做市商
+#define THOST_FTDC_HF_MarketMaker '5'
 
 typedef char TThostFtdcHedgeFlagType;
 
@@ -712,6 +716,8 @@ typedef char TThostFtdcBillHedgeFlagType;
 #define THOST_FTDC_CIDT_Arbitrage '2'
 ///套保
 #define THOST_FTDC_CIDT_Hedge '3'
+///做市商
+#define THOST_FTDC_CIDT_MarketMaker '5'
 
 typedef char TThostFtdcClientIDTypeType;
 
@@ -1415,6 +1421,14 @@ typedef char TThostFtdcSystemParamIDType;
 #define THOST_FTDC_TPID_IsPosiLimit 'M'
 ///郑商所询价时间间隔
 #define THOST_FTDC_TPID_ForQuoteTimeInterval 'Q'
+///是否期货限仓
+#define THOST_FTDC_TPID_IsFuturePosiLimit 'B'
+///是否期货下单频率限制
+#define THOST_FTDC_TPID_IsFutureOrderFreq 'C'
+///是否报单类型限制
+#define THOST_FTDC_TPID_IsOrderTypeLimit 'D'
+///行权冻结是否计算盈利
+#define THOST_FTDC_TPID_IsExecOrderProfit 'H'
 
 typedef char TThostFtdcTradeParamIDType;
 
@@ -6456,5 +6470,59 @@ typedef char TThostFtdcInstructionRightTypeType;
 #define THOST_FTDC_IVLV_ThirdLevel '3'
 
 typedef char TThostFtdcLevelTypeType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcStrikeOffsetTypeType是一个行权偏移类型类型
+/////////////////////////////////////////////////////////////////////////
+///实值额
+#define THOST_FTDC_STOV_RealValue '1'
+///盈利额
+#define THOST_FTDC_STOV_ProfitValue '2'
+///实值比例
+#define THOST_FTDC_STOV_RealRatio '3'
+///盈利比例
+#define THOST_FTDC_STOV_ProfitRatio '4'
+
+typedef char TThostFtdcStrikeOffsetTypeType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcLoginRemarkType是一个登录备注类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcLoginRemarkType[36];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcInvestUnitIDType是一个投资单元代码类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcInvestUnitIDType[17];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcBulletinIDType是一个公告编号类型
+/////////////////////////////////////////////////////////////////////////
+typedef int TThostFtdcBulletinIDType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcNewsTypeType是一个公告类型类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcNewsTypeType[3];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcNewsUrgencyType是一个紧急程度类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcNewsUrgencyType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcAbstractType是一个消息摘要类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcAbstractType[81];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcComeFromType是一个消息来源类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcComeFromType[21];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcURLLinkType是一个WEB地址类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcURLLinkType[201];
 
 #endif

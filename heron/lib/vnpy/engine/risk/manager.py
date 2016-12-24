@@ -15,6 +15,7 @@ from heron.lib.vnpy.constant import EMPTY_INT
 from heron.lib.vnpy.data import Log
 
 
+# todo 自成交限制
 class RiskManagerEngine(object):
     """风控引擎"""
     name = u'风控模块'

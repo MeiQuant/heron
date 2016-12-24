@@ -1,4 +1,4 @@
-# Install script for directory: /vagrant/Work/www/meiquant/Heron/heron/lib/vnctp
+# Install script for directory: /var/local/Heron/heron/lib/vnctp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/vagrant/Work/www/meiquant/Heron/heron/lib/vnctp/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/var/local/Heron/heron/lib/vnctp/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

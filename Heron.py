@@ -11,15 +11,13 @@ Heron
 
 * 启动socket.io服务端
 
+* 策略加载与运行
+
 """
 
 
 import sys
 import heron.server as server
-
-
-# import pydevd
-# pydevd.settrace('192.168.1.5', port=52727, stdoutToServer=True, stderrToServer=True)
 
 
 def main():

@@ -63,7 +63,7 @@
 	<error id="OTPPARAM_NOT_FOUND" value="58" prompt="CTP:找不到动态令牌配置信息"/>
 	<error id="UNSUPPORTED_OTPTYPE" value="59" prompt="CTP:不支持的动态令牌类型"/>
 	<error id="SINGLEUSERSESSION_EXCEED_LIMIT" value="60" prompt="CTP:用户在线会话超出上限"/>
-	<error id="EXCHANGE_UNSUPPORTED_ARBITRAGE" value="61" prompt="CTP:该交易所不支持套利类型报单"/>
+	<error id="EXCHANGE_UNSUPPORTED_ARBITRAGE" value="61" prompt="CTP:该交易所不支持套利/做市商类型报单"/>
 	<error id="NO_CONDITIONAL_ORDER_RIGHT" value="62" prompt="CTP:没有条件单交易权限"/>
 	<error id="AUTH_FAILED" value="63" prompt="CTP:客户端认证失败"/>
 	<error id="NOT_AUTHENT" value="64" prompt="CTP:客户端未认证"/>
@@ -112,12 +112,27 @@
 	<error id="POSI_LIMIT" value="106" prompt="CTP:投资者限仓"/>
 	<error id="BROKERPOSI_LIMIT" value="107" prompt="CTP:经纪公司限仓"/>
 	<error id="BAD_STOCKDISPOSAL_ACTION_FIELD" value="108" prompt="CTP:证券处置操作字段有误"/>
-    <error id="DUPLICATE_STOCKDISPOSAL_ACTION_REF" value="109" prompt="CTP:证券处置撤单已报送，不允许重复撤单"/>
+  <error id="DUPLICATE_STOCKDISPOSAL_ACTION_REF" value="109" prompt="CTP:证券处置撤单已报送，不允许重复撤单"/>
 	<error id="STOCKDISPOSAL_NOT_FOUND" value="110" prompt="CTP:证券处置撤单找不到相应证券处置"/>
 	<error id="NO_INSTRUCTION_RIGHT" value="111" prompt="CTP:投资者没有该交易指令权限"/>
 	<error id="NO_RIGHT_LEVEL" value="112" prompt="CTP:投资者分级权限不足"/>
 	<error id="OUT_OF_TIMEINTERVAL" value="113" prompt="CTP:当前时间禁止询价"/>
 	<error id="OUT_OF_PRICEINTERVAL" value="114" prompt="CTP:当前价差禁止询价"/>
+	<error id="NOT_SUPPORT_EXECDAY" value="115" prompt="CTP:该合约未到行权日"/>
+	<error id="ORDER_FREQ_LIMIT" value="116" prompt="CTP:下单频率限制"/>
+	<error id="OUT_OF_CMBPOSIDETAIL_LIMIT" value="117" prompt="CTP:拆分数量超出限制"/>
+	<error id="COVER_ONLY_COMB" value="118" prompt="CTP:转备兑只能填组合"/>
+	<error id="OUT_OF_COMB_TIME" value="119" prompt="CTP:行权日前一天开始不允许申报价差组合"/>
+	<error id="OUT_OF_COMB_VOLUME" value="120" prompt="CTP:组合数量超出持仓量"/>
+	<error id="STD_ONLY_SELL" value="121" prompt="CTP:跨式只支持卖"/>
+	<error id="ERROR_EXCHANGEID" value="122" prompt="CTP:交易所代码错误"/>
+	<error id="ERROR_PRICE_OR_VOLUME" value="123" prompt="CTP:价格或数量错误"/>
+	<error id="ERROR_NO_MARKETDATA" value="124" prompt="CTP:找不到行情"/>
+	<error id="ERROR_NO_MARGINRATE" value="125" prompt="CTP:找不到保证金率"/>
+	<error id="ERROR_NO_COMMISSIONRATE" value="126" prompt="CTP:找不到手续费率"/>
+	<error id="ERROR_NO_ACCBYPRODUCT" value="127" prompt="CTP:找不到产品资金映射表"/>
+	<error id="ERROR_NO_TRADINGACCOUNT" value="128" prompt="CTP:找不到资金账户"/>
+	<error id="ERROR_NO_PRODUCTGROUP" value="129" prompt="CTP:找不到产品组"/>
 	<!--转帐系统错误代码 -->
 	<error id="SEND_INSTITUTION_CODE_ERROR" value="1000" prompt="CTP:银期转账：发送机构代码错误"/>
 	<error id="NO_GET_PLATFORM_SN" value="1001" prompt="CTP:银期转账：取平台流水号错误"/>
