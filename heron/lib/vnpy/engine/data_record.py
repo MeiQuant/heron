@@ -19,7 +19,7 @@ from heron.lib.utils.date import today
 
 class DataRecordEngine(object):
     """数据记录引擎"""
-    # ----------------------------------------------------------------------
+
     def __init__(self, mainEngine, eventEngine):
         """Constructor"""
         self.mainEngine = mainEngine
@@ -46,7 +46,7 @@ class DataRecordEngine(object):
         self.loadSetting()
 
 
-    # ----------------------------------------------------------------------
+
     def loadSetting(self):
         """载入设置"""
         drSetting = load_setting('DataRecord')
@@ -119,7 +119,7 @@ class DataRecordEngine(object):
         # 注册事件监听
         self.registerEvent()
 
-        # ----------------------------------------------------------------------
+
 
     def procecssTickEvent(self, event):
         """处理行情推送"""
@@ -188,18 +188,18 @@ class DataRecordEngine(object):
                 bar.low = min(bar.low, drTick.lastPrice)
                 bar.close = drTick.lastPrice
 
-                # ----------------------------------------------------------------------
+
 
     def registerEvent(self):
         """注册事件监听"""
         self.eventEngine.register(EVENT_TICK, self.procecssTickEvent)
 
-    # ----------------------------------------------------------------------
+
     def insertData(self, dbName, collectionName, data):
         """插入数据到数据库（这里的data可以是CtaTickData或者CtaBarData）"""
         self.queue.put((dbName, collectionName, data.__dict__))
 
-    # ----------------------------------------------------------------------
+
     def run(self):
         """运行插入线程"""
         while self.active:
@@ -209,20 +209,20 @@ class DataRecordEngine(object):
             except Empty:
                 pass
 
-    # ----------------------------------------------------------------------
+
     def start(self):
         """启动"""
         self.active = True
         self.thread.start()
 
-    # ----------------------------------------------------------------------
+
     def stop(self):
         """退出"""
         if self.active:
             self.active = False
             self.thread.join()
 
-    # ----------------------------------------------------------------------
+
     def writeDrLog(self, content):
         """快速发出日志事件"""
         log = Log()

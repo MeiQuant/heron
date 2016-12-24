@@ -13,7 +13,7 @@ class DataEngine(object):
     """数据引擎"""
     contractFileName = 'ContractData.vt'
 
-    # ----------------------------------------------------------------------
+
     def __init__(self, eventEngine):
         """Constructor"""
         self.eventEngine = eventEngine
@@ -33,14 +33,14 @@ class DataEngine(object):
         # 注册事件监听
         self.registerEvent()
 
-    # ----------------------------------------------------------------------
+
     def updateContract(self, event):
         """更新合约数据"""
         contract = event.dict_['data']
         self.contractDict[contract.vtSymbol] = contract
         self.contractDict[contract.symbol] = contract  # 使用常规代码（不包括交易所）可能导致重复
 
-    # ----------------------------------------------------------------------
+
     def getContract(self, vtSymbol):
         """查询合约对象"""
         try:
@@ -48,19 +48,19 @@ class DataEngine(object):
         except KeyError:
             return None
 
-    # ----------------------------------------------------------------------
+
     def getAllContracts(self):
         """查询所有合约对象（返回列表）"""
         return self.contractDict.values()
 
-    # ----------------------------------------------------------------------
+
     def saveContracts(self):
         """保存所有合约对象到硬盘"""
         f = shelve.open(self.contractFileName)
         f['data'] = self.contractDict
         f.close()
 
-    # ----------------------------------------------------------------------
+
     def loadContracts(self):
         """从硬盘读取合约对象"""
         f = shelve.open(self.contractFileName)
@@ -70,7 +70,7 @@ class DataEngine(object):
                 self.contractDict[key] = value
         f.close()
 
-    # ----------------------------------------------------------------------
+
     def updateOrder(self, event):
         """更新委托数据"""
         order = event.dict_['data']
@@ -84,7 +84,7 @@ class DataEngine(object):
         else:
             self.workingOrderDict[order.vtOrderID] = order
 
-    # ----------------------------------------------------------------------
+
     def getOrder(self, vtOrderID):
         """查询委托"""
         try:
@@ -92,12 +92,12 @@ class DataEngine(object):
         except KeyError:
             return None
 
-    # ----------------------------------------------------------------------
+
     def getAllWorkingOrders(self):
         """查询所有活动委托（返回列表）"""
         return self.workingOrderDict.values()
 
-    # ----------------------------------------------------------------------
+
     def registerEvent(self):
         """注册事件监听"""
         self.eventEngine.register(EVENT_CONTRACT, self.updateContract)

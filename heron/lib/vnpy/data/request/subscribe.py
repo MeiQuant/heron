@@ -9,7 +9,7 @@ from heron.lib.vnpy.constant import EMPTY_STRING, EMPTY_UNICODE, EMPTY_FLOAT
 class SubscribeReq(object):
     """订阅行情时传入的对象类"""
 
-    #----------------------------------------------------------------------
+
     def __init__(self):
         """Constructor"""
         self.symbol = EMPTY_STRING              # 代码

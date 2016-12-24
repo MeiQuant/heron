@@ -8,14 +8,14 @@ from PyQt4 import QtGui
 from vnctpmd import *
 
 
-#----------------------------------------------------------------------
+
 def print_dict(d):
     """按照键值打印一个字典"""
     for key,value in d.items():
         print key + ':' + str(value)
         
         
-#----------------------------------------------------------------------
+
 def simple_log(func):
     """简单装饰器用于输出函数名"""
     def wrapper(*args, **kw):
@@ -29,91 +29,91 @@ def simple_log(func):
 class TestMdApi(MdApi):
     """测试用实例"""
 
-    #----------------------------------------------------------------------
+
     def __init__(self):
         """Constructor"""
         super(TestMdApi, self).__init__()
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onFrontConnected(self):
         """服务器连接"""
         pass
     
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onFrontDisconnected(self, n):
         """服务器断开"""
         print n
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onHeartBeatWarning(self, n):
         """心跳报警"""
         print n
     
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspError(self, error, n, last):
         """错误"""
         print_dict(error)
     
     @simple_log 
-    #----------------------------------------------------------------------
+
     def onRspUserLogin(self, data, error, n, last):
         """登陆回报"""
         print_dict(data)
         print_dict(error)
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspUserLogout(self, data, error, n, last):
         """登出回报"""
         print_dict(data)
         print_dict(error)
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspSubMarketData(self, data, error, n, last):
         """订阅合约回报"""
         print_dict(data)
         print_dict(error)
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspUnSubMarketData(self, data, error, n, last):
         """退订合约回报"""
         print_dict(data)
         print_dict(error)    
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRtnDepthMarketData(self, data):
         """行情推送"""
         print_dict(data)
     
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspSubForQuoteRsp(self, data, error, n, last):
         """订阅合约回报"""
         print_dict(data)
         print_dict(error)
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspUnSubForQuoteRsp(self, data, error, n, last):
         """退订合约回报"""
         print_dict(data)
         print_dict(error)    
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRtnForQuoteRsp(self, data):
         """行情推送"""
         print_dict(data)    
 
 
-#----------------------------------------------------------------------
+
 def main():
     """主测试函数，出现堵塞时可以考虑使用sleep"""
     reqid = 0

@@ -7,7 +7,7 @@
 
 建立socket.io server
 
-承担client到柜台的转发
+注册socket.io事件并承担client到柜台的转发
 
 """
 

@@ -9,7 +9,7 @@ from heron.lib.vnpy.constant import EMPTY_STRING
 class CancelOrderReq(object):
     """撤单时传入的对象类"""
 
-    #----------------------------------------------------------------------
+
     def __init__(self):
         """Constructor"""
         self.symbol = EMPTY_STRING              # 代码

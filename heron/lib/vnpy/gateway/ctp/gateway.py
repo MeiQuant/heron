@@ -15,7 +15,6 @@ from ctp_td_api import CtpTdApi
 class CtpGateway(GatewayBase):
     """CTP接口"""
 
-    # ----------------------------------------------------------------------
     def __init__(self, eventEngine, gatewayName='CTP'):
         """Constructor"""
         super(CtpGateway, self).__init__(eventEngine, gatewayName)
@@ -28,7 +27,6 @@ class CtpGateway(GatewayBase):
 
         self.qryEnabled = False  # 是否要启动循环查询
 
-    # ----------------------------------------------------------------------
     def connect(self, config):
         """连接"""
         setting = config or load_setting('CTP')
@@ -52,32 +50,26 @@ class CtpGateway(GatewayBase):
         # 初始化并启动查询
         self.initQuery()
 
-    # ----------------------------------------------------------------------
     def subscribe(self, subscribeReq):
         """订阅行情"""
         self.mdApi.subscribe(subscribeReq)
 
-    # ----------------------------------------------------------------------
     def sendOrder(self, orderReq):
         """发单"""
         return self.tdApi.sendOrder(orderReq)
 
-    # ----------------------------------------------------------------------
     def cancelOrder(self, cancelOrderReq):
         """撤单"""
         self.tdApi.cancelOrder(cancelOrderReq)
 
-    # ----------------------------------------------------------------------
     def qryAccount(self):
         """查询账户资金"""
         self.tdApi.qryAccount()
 
-    # ----------------------------------------------------------------------
     def qryPosition(self):
         """查询持仓"""
         self.tdApi.qryPosition()
 
-    # ----------------------------------------------------------------------
     def close(self):
         """关闭"""
         if self.mdConnected:
@@ -91,7 +83,6 @@ class CtpGateway(GatewayBase):
         log.content = u'已断开与柜台的通信'
         self.onLog(log)
 
-    # ----------------------------------------------------------------------
     def initQuery(self):
         """初始化连续查询"""
         if self.qryEnabled:
@@ -104,7 +95,6 @@ class CtpGateway(GatewayBase):
 
             self.startQuery()
 
-    # ----------------------------------------------------------------------
     def query(self, event):
         """注册到事件处理引擎上的查询函数"""
         self.qryCount += 1
@@ -122,12 +112,10 @@ class CtpGateway(GatewayBase):
             if self.qryNextFunction == len(self.qryFunctionList):
                 self.qryNextFunction = 0
 
-    # ----------------------------------------------------------------------
     def startQuery(self):
         """启动连续查询"""
         self.eventEngine.register(EVENT_TIMER, self.query)
 
-    # ----------------------------------------------------------------------
     def setQryEnabled(self, qryEnabled):
         """设置是否要启动循环查询"""
         self.qryEnabled = qryEnabled

@@ -1,6 +1,6 @@
 .DS_Store
 .idea/
-temp/
+var/temp
 *.py[co]
 *.vt.dat
 *.vt.bak

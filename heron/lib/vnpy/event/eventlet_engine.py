@@ -19,7 +19,7 @@ class EventEngine(object):
     计时器使用python线程的事件驱动引擎
     """
 
-    # ----------------------------------------------------------------------
+
     def __init__(self):
         """初始化事件引擎"""
         # 事件队列
@@ -40,7 +40,7 @@ class EventEngine(object):
         # 其中每个键对应的值是一个列表，列表中保存了对该事件进行监听的函数功能
         self.__handlers = defaultdict(list)
 
-    # ----------------------------------------------------------------------
+
     def __run(self):
         """引擎运行"""
         while self.__active:
@@ -50,7 +50,7 @@ class EventEngine(object):
             except Empty:
                 pass
 
-    # ----------------------------------------------------------------------
+
     def __process(self, event):
         """处理事件"""
         # 检查是否存在对该事件进行监听的处理函数
@@ -62,7 +62,7 @@ class EventEngine(object):
             #for handler in self.__handlers[event.type_]:
                 #handler(event)
 
-    # ----------------------------------------------------------------------
+
     def __runTimer(self):
         """运行在计时器线程中的循环函数"""
         while self.__timerActive:
@@ -75,7 +75,7 @@ class EventEngine(object):
             # 等待
             sleep(self.__timerSleep)
 
-    # ----------------------------------------------------------------------
+
     def start(self):
         """引擎启动"""
         # 将引擎设为启动
@@ -88,7 +88,7 @@ class EventEngine(object):
         self.__timerActive = True
         self.__timer.start()
 
-    # ----------------------------------------------------------------------
+
     def stop(self):
         """停止引擎"""
         # 将引擎设为停止
@@ -101,7 +101,7 @@ class EventEngine(object):
         # 等待事件处理线程退出
         self.__thread.join()
 
-    # ----------------------------------------------------------------------
+
     def register(self, type_, handler):
         """注册事件处理函数监听"""
         # 尝试获取该事件类型对应的处理函数列表，若无defaultDict会自动创建新的list
@@ -111,7 +111,7 @@ class EventEngine(object):
         if handler not in handlerList:
             handlerList.append(handler)
 
-    # ----------------------------------------------------------------------
+
     def unregister(self, type_, handler):
         """注销事件处理函数监听"""
         # 尝试获取该事件类型对应的处理函数列表，若无则忽略该次注销请求
@@ -125,7 +125,7 @@ class EventEngine(object):
         if not handlerList:
             del self.__handlers[type_]
 
-    # ----------------------------------------------------------------------
+
     def put(self, event):
         """向事件队列中存入事件"""
         self.__queue.put(event)

@@ -20,7 +20,7 @@ class RiskManagerEngine(object):
     """风控引擎"""
     name = u'风控模块'
 
-    # ----------------------------------------------------------------------
+
     def __init__(self, mainEngine, eventEngine):
         """Constructor"""
         self.mainEngine = mainEngine
@@ -48,7 +48,7 @@ class RiskManagerEngine(object):
         self.loadSetting()
         self.registerEvent()
 
-    # ----------------------------------------------------------------------
+
     def loadSetting(self):
         """读取配置"""
         d = load_setting('RiskManager')
@@ -65,24 +65,24 @@ class RiskManagerEngine(object):
 
         self.workingOrderLimit = d['workingOrderLimit']
 
-    # ----------------------------------------------------------------------
+
     # todo 将风控参数存入数据库，支持客户端读写
     def saveSetting(self):
         """保存风控参数"""
 
-    # ----------------------------------------------------------------------
+
     def registerEvent(self):
         """注册事件监听"""
         self.eventEngine.register(EVENT_TRADE, self.updateTrade)
         self.eventEngine.register(EVENT_TIMER, self.updateTimer)
 
-    # ----------------------------------------------------------------------
+
     def updateTrade(self, event):
         """更新成交数据"""
         trade = event.dict_['data']
         self.tradeCount += trade.volume
 
-    # ----------------------------------------------------------------------
+
     def updateTimer(self, event):
         """更新定时器"""
         self.orderFlowTimer += 1
@@ -92,7 +92,7 @@ class RiskManagerEngine(object):
             self.orderFlowCount = 0
             self.orderFlowTimer = 0
 
-    # ----------------------------------------------------------------------
+
     def writeRiskLog(self, content):
         """快速发出日志事件"""
 
@@ -104,7 +104,7 @@ class RiskManagerEngine(object):
         event.dict_['data'] = log
         self.eventEngine.put(event)
 
-        # ----------------------------------------------------------------------
+
 
     def checkRisk(self, orderReq):
         """检查风险"""
@@ -142,45 +142,45 @@ class RiskManagerEngine(object):
 
         return True
 
-        # ----------------------------------------------------------------------
+
 
     def clearOrderFlowCount(self):
         """清空流控计数"""
         self.orderFlowCount = 0
         self.writeRiskLog(u'清空流控计数')
 
-    # ----------------------------------------------------------------------
+
     def clearTradeCount(self):
         """清空成交数量计数"""
         self.tradeCount = 0
         self.writeRiskLog(u'清空总成交计数')
 
-    # ----------------------------------------------------------------------
+
     def setOrderFlowLimit(self, n):
         """设置流控限制"""
         self.orderFlowLimit = n
 
-    # ----------------------------------------------------------------------
+
     def setOrderFlowClear(self, n):
         """设置流控清空时间"""
         self.orderFlowClear = n
 
-    # ----------------------------------------------------------------------
+
     def setOrderSizeLimit(self, n):
         """设置委托最大限制"""
         self.orderSizeLimit = n
 
-    # ----------------------------------------------------------------------
+
     def setTradeLimit(self, n):
         """设置成交限制"""
         self.tradeLimit = n
 
-    # ----------------------------------------------------------------------
+
     def setWorkingOrderLimit(self, n):
         """设置活动合约限制"""
         self.workingOrderLimit = n
 
-    # ----------------------------------------------------------------------
+
     def switchEngineStatus(self):
         """开关风控引擎"""
         self.active = not self.active

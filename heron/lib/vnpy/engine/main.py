@@ -23,7 +23,7 @@ from risk import RiskManagerEngine
 class MainEngine(object):
     """主引擎"""
 
-    # ----------------------------------------------------------------------
+
     def __init__(self):
         """Constructor"""
         # 创建事件引擎
@@ -47,7 +47,7 @@ class MainEngine(object):
         self.drEngine = DataRecordEngine(self, self.eventEngine)
         self.rmEngine = RiskManagerEngine(self, self.eventEngine)
 
-    # ----------------------------------------------------------------------
+
     def initGateway(self):
         """初始化接口对象"""
 
@@ -58,13 +58,13 @@ class MainEngine(object):
         except Exception, e:
             print e
 
-    # ----------------------------------------------------------------------
+
 
     def addGateway(self, gateway, gatewayName=None):
         """创建接口"""
         self.gatewayDict[gatewayName] = gateway(self.eventEngine, gatewayName)
 
-    # ----------------------------------------------------------------------
+
     def connect(self, gatewayName, config):
         """连接特定名称的接口"""
         if gatewayName in self.gatewayDict:
@@ -73,7 +73,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 
-    # ----------------------------------------------------------------------
+
     def subscribe(self, subscribeReq, gatewayName):
         """订阅特定接口的行情"""
         if gatewayName in self.gatewayDict:
@@ -82,7 +82,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 
-            # ----------------------------------------------------------------------
+
 
     def sendOrder(self, orderReq, gatewayName):
         """对特定接口发单"""
@@ -96,7 +96,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 
-            # ----------------------------------------------------------------------
+
 
     def cancelOrder(self, cancelOrderReq, gatewayName):
         """对特定接口撤单"""
@@ -106,7 +106,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 
-            # ----------------------------------------------------------------------
+
 
     def qryAccount(self, gatewayName):
         """查询特定接口的账户"""
@@ -116,7 +116,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 
-            # ----------------------------------------------------------------------
+
 
     def qryPosition(self, gatewayName):
         """查询特定接口的持仓"""
@@ -126,7 +126,7 @@ class MainEngine(object):
         else:
             self.writeLog(u'接口不存在：%s' % gatewayName)
 
-            # ----------------------------------------------------------------------
+
 
     def exit(self):
         """退出程序前调用，保证正常退出"""
@@ -143,7 +143,7 @@ class MainEngine(object):
         # 保存数据引擎里的合约数据到硬盘
         self.dataEngine.saveContracts()
 
-    # ----------------------------------------------------------------------
+
     def writeLog(self, content):
         """快速发出日志事件"""
         log = Log()
@@ -152,7 +152,7 @@ class MainEngine(object):
         event.dict_['data'] = log
         self.eventEngine.put(event)
 
-        # ----------------------------------------------------------------------
+
 
     def dbConnect(self):
         """连接MongoDB数据库"""
@@ -175,7 +175,7 @@ class MainEngine(object):
                 except ConnectionFailure:
                     self.writeLog(u'MongoDB连接失败')
 
-    # ----------------------------------------------------------------------
+
     def dbInsert(self, dbName, collectionName, d):
         """向MongoDB中插入数据，d是具体数据"""
         if self.dbClient:
@@ -183,7 +183,7 @@ class MainEngine(object):
             collection = db[collectionName]
             collection.insert_one(d)
 
-    # ----------------------------------------------------------------------
+
     def dbQuery(self, dbName, collectionName, d):
         """从MongoDB中读取数据，d是查询要求，返回的是数据库查询的指针"""
         if self.dbClient:
@@ -194,7 +194,7 @@ class MainEngine(object):
         else:
             return None
 
-    # ----------------------------------------------------------------------
+
     def dbUpdate(self, dbName, collectionName, d, flt, upsert=False):
         """向MongoDB中更新数据，d是具体数据，flt是过滤条件，upsert代表若无是否要插入"""
         if self.dbClient:
@@ -202,22 +202,22 @@ class MainEngine(object):
             collection = db[collectionName]
             collection.replace_one(flt, d, upsert)
 
-    # ----------------------------------------------------------------------
+
     def getContract(self, vtSymbol):
         """查询合约"""
         return self.dataEngine.getContract(vtSymbol)
 
-    # ----------------------------------------------------------------------
+
     def getAllContracts(self):
         """查询所有合约（返回列表）"""
         return self.dataEngine.getAllContracts()
 
-    # ----------------------------------------------------------------------
+
     def getOrder(self, vtOrderID):
         """查询委托"""
         return self.dataEngine.getOrder(vtOrderID)
 
-    # ----------------------------------------------------------------------
+
     def getAllWorkingOrders(self):
         """查询所有的活跃的委托（返回列表）"""
         return self.dataEngine.getAllWorkingOrders()

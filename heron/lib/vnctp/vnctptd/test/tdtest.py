@@ -5,14 +5,14 @@ from time import sleep
 
 from vnctptd import *
 
-#----------------------------------------------------------------------
+
 def print_dict(d):
     """按照键值打印一个字典"""
     for key,value in d.items():
         print key + ':' + str(value)
         
         
-#----------------------------------------------------------------------
+
 def simple_log(func):
     """简单装饰器用于输出函数名"""
     def wrapper(*args, **kw):
@@ -26,36 +26,36 @@ def simple_log(func):
 class TestTdApi(TdApi):
     """测试用实例"""
 
-    #----------------------------------------------------------------------
+
     def __init__(self):
         """Constructor"""
         super(TestTdApi, self).__init__()
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onFrontConnected(self):
         """服务器连接"""
         pass
     
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onFrontDisconnected(self, n):
         """服务器断开"""
         print n
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onHeartBeatWarning(self, n):
         """心跳报警"""
         print n
     
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspError(self, error, n, last):
         """错误"""
         print_dict(error)
     
-    #----------------------------------------------------------------------
+
     @simple_log  
     def onRspUserLogin(self, data, error, n, last):
         """登陆回报"""
@@ -66,28 +66,28 @@ class TestTdApi(TdApi):
         self.frontID = data['FrontID']
         self.sessionID = data['SessionID']
         
-    #----------------------------------------------------------------------
+
     @simple_log    
     def onRspUserLogout(self, data, error, n, last):
         """登出回报"""
         print_dict(data)
         print_dict(error)
         
-    #----------------------------------------------------------------------
+
     @simple_log
     def onRspQrySettlementInfo(self, data, error, n, last):
         """查询结算信息回报"""
         print_dict(data)
         print_dict(error)
 
-    #----------------------------------------------------------------------
+
     @simple_log
     def onRspSettlementInfoConfirm(self, data, error, n, last):
         """确认结算信息回报"""
         print_dict(data)
         print_dict(error)
         
-    #----------------------------------------------------------------------
+
     @simple_log
     def onRspQryInstrument(self, data, error, n, last):
         """查询合约回报"""
@@ -97,7 +97,7 @@ class TestTdApi(TdApi):
         print last
         
         
-#----------------------------------------------------------------------
+
 def main():
     """主测试函数，出现堵塞时可以考虑使用sleep"""
     reqid = 0

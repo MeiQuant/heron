@@ -10,10 +10,10 @@ from heron.lib.vnpy.data import Position
 
 from mapping import posiDirectionMapReverse
 
+
 class PositionBuffer(object):
     """用来缓存持仓的数据，处理上期所的数据返回分今昨的问题"""
 
-    # ----------------------------------------------------------------------
     def __init__(self, data, gatewayName):
         """Constructor"""
         self.symbol = data['InstrumentID']
@@ -33,7 +33,6 @@ class PositionBuffer(object):
         pos.vtPositionName = '.'.join([pos.vtSymbol, pos.direction])
         self.pos = pos
 
-    # ----------------------------------------------------------------------
     def updateShfeBuffer(self, data, size):
         """更新上期所缓存，返回更新后的持仓数据"""
         # 昨仓和今仓的数据更新是分在两条记录里的，因此需要判断检查该条记录对应仓位
@@ -59,7 +58,6 @@ class PositionBuffer(object):
 
         return copy(self.pos)
 
-    # ----------------------------------------------------------------------
     def updateBuffer(self, data, size):
         """更新其他交易所的缓存，返回更新后的持仓数据"""
         # 其他交易所并不区分今昨，因此只关心总仓位，昨仓设为0
@@ -72,8 +70,6 @@ class PositionBuffer(object):
             self.pos.price = 0
 
         return copy(self.pos)
-
-        # ----------------------------------------------------------------------
 
     def getPos(self):
         """获取当前的持仓数据"""

@@ -58,7 +58,7 @@ def processCallBack(line):
     createWrap(cbName)
     
 
-#----------------------------------------------------------------------
+
 def createWrap(cbName):
     """在Python封装段代码中进行处理"""
     # 生成.h文件中的on部分

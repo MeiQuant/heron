@@ -12,7 +12,7 @@ from heron.lib.vnpy.event.type import EVENT_TICK
 
 class MarketNamespace(Namespace):
 
-    def __init__(self, namespace, engine):
+    def __init__(self, engine, namespace='/market'):
         super(Namespace, self).__init__(namespace)
         self.engine = engine
 
@@ -21,7 +21,7 @@ class MarketNamespace(Namespace):
     def update_tick(self, event):
         tick = event.dict_['data']
         # todo 转成有序数组发送给客户端
-        self.emit('update_tick', tick.__dict__, namespace='/market')
+        self.emit('update_tick', tick.__dict__)
 
     def register_events(self):
         # 注册行情事件

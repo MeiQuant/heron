@@ -16,7 +16,7 @@ from mapping import exchangeMapReverse
 class CtpMdApi(MdApi):
     """CTP行情API实现"""
 
-    # ----------------------------------------------------------------------
+
     def __init__(self, gateway):
         """Constructor"""
         super(CtpMdApi, self).__init__()
@@ -36,7 +36,7 @@ class CtpMdApi(MdApi):
         self.brokerID = EMPTY_STRING  # 经纪商代码
         self.address = EMPTY_STRING  # 服务器地址
 
-    # ----------------------------------------------------------------------
+
     def onFrontConnected(self):
         """服务器连接"""
         self.connectionStatus = True
@@ -47,7 +47,7 @@ class CtpMdApi(MdApi):
         self.gateway.onLog(log)
         self.login()
 
-    # ----------------------------------------------------------------------
+
     def onFrontDisconnected(self, n):
         """服务器断开"""
         self.connectionStatus = False
@@ -59,14 +59,14 @@ class CtpMdApi(MdApi):
         log.content = u"行情服务器连接断开"
         self.gateway.onLog(log)
 
-        # ----------------------------------------------------------------------
+
 
     def onHeartBeatWarning(self, n):
         """心跳报警"""
         # 因为API的心跳报警比较常被触发，且与API工作关系不大，因此选择忽略
         pass
 
-    # ----------------------------------------------------------------------
+
     def onRspError(self, error, n, last):
         """错误回报"""
         err = Error()
@@ -75,7 +75,7 @@ class CtpMdApi(MdApi):
         err.errorMsg = error['ErrorMsg'].decode('gbk')
         self.gateway.onError(err)
 
-    # ----------------------------------------------------------------------
+
     def onRspUserLogin(self, data, error, n, last):
         """登陆回报"""
         # 如果登录成功，推送日志信息
@@ -100,7 +100,7 @@ class CtpMdApi(MdApi):
             err.errorMsg = error['ErrorMsg'].decode('gbk')
             self.gateway.onError(err)
 
-    # ----------------------------------------------------------------------
+
     def onRspUserLogout(self, data, error, n, last):
         """登出回报"""
         # 如果登出成功，推送日志信息
@@ -121,19 +121,19 @@ class CtpMdApi(MdApi):
             err.errorMsg = error['ErrorMsg'].decode('gbk')
             self.gateway.onError(err)
 
-    # ----------------------------------------------------------------------
+
     def onRspSubMarketData(self, data, error, n, last):
         """订阅合约回报"""
         # 通常不在乎订阅错误，选择忽略
         pass
 
-    # ----------------------------------------------------------------------
+
     def onRspUnSubMarketData(self, data, error, n, last):
         """退订合约回报"""
         # 同上
         pass
 
-        # ----------------------------------------------------------------------
+
 
     def onRtnDepthMarketData(self, data):
         """行情推送"""
@@ -170,23 +170,23 @@ class CtpMdApi(MdApi):
 
         self.gateway.onTick(tick)
 
-    # ----------------------------------------------------------------------
+
     def onRspSubForQuoteRsp(self, data, error, n, last):
         """订阅期权询价"""
         pass
 
-    # ----------------------------------------------------------------------
+
     def onRspUnSubForQuoteRsp(self, data, error, n, last):
         """退订期权询价"""
         pass
 
-        # ----------------------------------------------------------------------
+
 
     def onRtnForQuoteRsp(self, data):
         """期权询价推送"""
         pass
 
-        # ----------------------------------------------------------------------
+
 
     def connect(self, userID, password, brokerID, address):
         """初始化连接"""
@@ -214,7 +214,7 @@ class CtpMdApi(MdApi):
             if not self.loginStatus:
                 self.login()
 
-    # ----------------------------------------------------------------------
+
     def subscribe(self, subscribeReq):
         """订阅合约"""
         # 这里的设计是，如果尚未登录就调用了订阅方法
@@ -223,7 +223,7 @@ class CtpMdApi(MdApi):
             self.subscribeMarketData(str(subscribeReq.symbol))
         self.subscribedSymbols.add(subscribeReq)
 
-    # ----------------------------------------------------------------------
+
 
     def login(self):
         """登录"""
@@ -236,7 +236,7 @@ class CtpMdApi(MdApi):
             self.reqID += 1
             self.reqUserLogin(req, self.reqID)
 
-    # -----------------------------------------------------------------------
+-
 
     def logout(self):
         """用户退出"""
