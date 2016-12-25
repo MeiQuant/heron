@@ -33,9 +33,15 @@ class SystemNamespace(Namespace):
         # todo 依据传入的柜台服务器地址建立连接
         self.engine.connect('CTP', config)
 
+        # connect Database
+        self.engine.dbConnect()
+
         log = Log()
         log.content = "system starting"
         self.emit('log', log.__dict__)
 
     def on_close(self):
         self.engine.exit()
+        log = Log()
+        log.content = "system closed"
+        self.emit('log', log.__dict__)

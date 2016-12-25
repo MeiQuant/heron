@@ -8,12 +8,12 @@
   },
 
   "MongoDB": {
-    "host": "192.168.1.3",
-    "port": "270271"
+    "host": "192.168.33.1",
+    "port": 27017
   },
 
   "DataRecord": {
-    "working": false,
+    "working": true,
 
     "dbName" : {
       "setting": "VnTrader_Setting_Db",

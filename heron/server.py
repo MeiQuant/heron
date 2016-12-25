@@ -30,9 +30,9 @@ socketio = SocketIO(app, engineio_logger=True, logger=True)
 
 engine = MainEngine()
 
-socketio.on_namespace(SystemNamespace('/system', engine))
-socketio.on_namespace(TradeNamespace('/trade', engine))
-socketio.on_namespace(MarketNamespace('/market', engine))
+socketio.on_namespace(SystemNamespace(engine, '/system'))
+socketio.on_namespace(TradeNamespace(engine, '/trade'))
+socketio.on_namespace(MarketNamespace(engine, '/market'))
 
 
 def start():
