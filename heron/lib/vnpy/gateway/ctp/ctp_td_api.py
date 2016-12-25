@@ -7,7 +7,7 @@ import os
 
 from vnctptd import TdApi
 
-from heron.lib.vnpy.data import Log, Error, Account, Contract, Order, Trade
+from heron.lib.vnpy.model import Log, Error, Account, Contract, Order, Trade
 
 from mapping import *
 from heron.lib.vnpy.constant import *

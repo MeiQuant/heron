@@ -3,7 +3,11 @@
 默认配置
 """
 
-base_config = {
+settings = {
     'debug': False,
-    'testing': False
+    'testing': False,
+    'engineio_logger': False,
+    'logger': False,
+    'env': 'production',
+    'host': '127.0.0.1'
 }

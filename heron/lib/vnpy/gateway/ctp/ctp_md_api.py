@@ -8,7 +8,7 @@ from datetime import datetime
 
 from vnctpmd import MdApi
 
-from heron.lib.vnpy.data import Log, Error, Tick
+from heron.lib.vnpy.model import Log, Error, Tick
 from heron.lib.vnpy.constant import EMPTY_INT, EMPTY_STRING
 
 from mapping import exchangeMapReverse
@@ -139,7 +139,7 @@ class CtpMdApi(MdApi):
         tick.time = '.'.join([data['UpdateTime'], str(data['UpdateMillisec'] / 100)])
 
         # 这里由于交易所夜盘时段的交易日数据有误，所以选择本地获取
-        # tick.date = data['TradingDay']
+        # tick.date = model['TradingDay']
         tick.date = datetime.now().strftime('%Y-%m-%d')
 
         tick.openPrice = data['OpenPrice']

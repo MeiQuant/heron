@@ -8,7 +8,7 @@ from time import sleep
 
 from heron.lib.vnpy.event import EventEngine, Event
 from heron.lib.vnpy.event.type import EVENT_LOG, EVENT_TIMER
-from heron.lib.vnpy.data import Log
+from heron.lib.vnpy.model import Log
 
 
 import unittest
@@ -19,7 +19,7 @@ def simpletest(event):
 
 
 def print_log(event):
-    log = event.dict_['data']
+    log = event.dict_['model']
     print ':'.join([log.time, log.logContent])
 
 
@@ -38,7 +38,7 @@ class TestEventEnggine(unittest.TestCase):
         log.logContent = "\nThis is log from event engine test!!!!"
 
         event = Event(type_=EVENT_LOG)
-        event.dict_['data'] = log
+        event.dict_['model'] = log
 
         self.event_engine.put(event)
 

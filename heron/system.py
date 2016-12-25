@@ -8,7 +8,7 @@ system事件监听
 
 from flask_socketio import Namespace
 
-from heron.lib.vnpy.data import Log
+from heron.lib.vnpy.model import Log
 from heron.lib.vnpy.event.type import EVENT_LOG, EVENT_ERROR
 
 
@@ -21,7 +21,7 @@ class SystemNamespace(Namespace):
         self.register_events()
 
     def send_log(self, event):
-        log = event.dict_['data']
+        log = event.dict_['model']
         self.emit('log', log.__dict__)
 
     def register_events(self):

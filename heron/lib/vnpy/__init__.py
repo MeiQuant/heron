@@ -7,6 +7,6 @@ vnpy package
 """
 
 import constant
-import data
+import model
 import engine
 import event

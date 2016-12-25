@@ -6,7 +6,7 @@ market事件监听
 from flask_socketio import Namespace
 
 
-from heron.lib.vnpy.data import SubscribeReq
+from heron.lib.vnpy.model import SubscribeReq
 from heron.lib.vnpy.event.type import EVENT_TICK
 
 
@@ -19,7 +19,7 @@ class MarketNamespace(Namespace):
         self.register_events()
 
     def update_tick(self, event):
-        tick = event.dict_['data']
+        tick = event.dict_['model']
         # todo 转成有序数组发送给客户端
         self.emit('update_tick', tick.__dict__)
 

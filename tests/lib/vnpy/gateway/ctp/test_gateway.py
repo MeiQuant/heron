@@ -12,7 +12,7 @@ from time import sleep
 
 
 def print_log(event):
-    log = event.dict_['data']
+    log = event.dict_['model']
     print u":".join([log.time, log.content]).encode('utf-8')
 
 

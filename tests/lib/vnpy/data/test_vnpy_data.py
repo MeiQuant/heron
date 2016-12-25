@@ -6,7 +6,7 @@
 
 import unittest
 
-from heron.lib.vnpy.data import Base, Tick, OrderReq
+from heron.lib.vnpy.model import Base, Tick, OrderReq
 
 
 class TestConstant(unittest.TestCase):

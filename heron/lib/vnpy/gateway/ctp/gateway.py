@@ -3,7 +3,7 @@
 CTP接口实现
 """
 
-from heron.lib.vnpy.data import Log
+from heron.lib.vnpy.model import Log
 from heron.lib.vnpy.gateway import GatewayBase
 from heron.lib.vnpy.event.type import EVENT_TIMER
 from heron.lib.vnpy.settings import load_setting

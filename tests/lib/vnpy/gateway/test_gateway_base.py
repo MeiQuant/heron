@@ -6,7 +6,7 @@
 from heron.lib.vnpy.gateway.gateway_base import GatewayBase
 from heron.lib.vnpy.event import EventEngine
 from heron.lib.vnpy.event.type import EVENT_LOG
-from heron.lib.vnpy.data import Log
+from heron.lib.vnpy.model import Log
 
 import unittest
 from time import sleep
@@ -19,7 +19,7 @@ class Gateway(GatewayBase):
 
 
 def print_log(event):
-    log = event.dict_['data']
+    log = event.dict_['model']
     print u":".join([log.time, log.logContent]).encode('utf-8')
 
 

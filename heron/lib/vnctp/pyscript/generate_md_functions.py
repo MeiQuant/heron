@@ -44,11 +44,11 @@ def processCallBack(line):
     if 'OnRspError' in cbName:
         on_line = 'virtual void on' + cbName[2:] + '(dict error, int id, bool last) {};\n'
     elif 'OnRsp' in cbName:
-        on_line = 'virtual void on' + cbName[2:] + '(dict data, dict error, int id, bool last) {};\n'
+        on_line = 'virtual void on' + cbName[2:] + '(dict model, dict error, int id, bool last) {};\n'
     elif 'OnRtn' in cbName:
-        on_line = 'virtual void on' + cbName[2:] + '(dict data) {};\n'
+        on_line = 'virtual void on' + cbName[2:] + '(dict model) {};\n'
     elif 'OnErrRtn' in cbName:
-        on_line = 'virtual void on' + cbName[2:] + '(dict data, dict error) {};\n'
+        on_line = 'virtual void on' + cbName[2:] + '(dict model, dict error) {};\n'
     else:
         on_line = ''
     fheaderon.write(on_line)
@@ -66,14 +66,14 @@ def createWrap(cbName):
         on_line = 'virtual void on' + cbName[2:] + '(dict error, int id, bool last)\n'    
         override_line = '("on' + cbName[2:] + '")(error, id, last);\n' 
     elif 'OnRsp' in cbName:
-        on_line = 'virtual void on' + cbName[2:] + '(dict data, dict error, int id, bool last)\n'
-        override_line = '("on' + cbName[2:] + '")(data, error, id, last);\n' 
+        on_line = 'virtual void on' + cbName[2:] + '(dict model, dict error, int id, bool last)\n'
+        override_line = '("on' + cbName[2:] + '")(model, error, id, last);\n'
     elif 'OnRtn' in cbName:
-        on_line = 'virtual void on' + cbName[2:] + '(dict data)\n'
-        override_line = '("on' + cbName[2:] + '")(data);\n'
+        on_line = 'virtual void on' + cbName[2:] + '(dict model)\n'
+        override_line = '("on' + cbName[2:] + '")(model);\n'
     elif 'OnErrRtn' in cbName:
-        on_line = 'virtual void on' + cbName[2:] + '(dict data, dict error)\n'
-        override_line = '("on' + cbName[2:] + '")(data, error);\n'
+        on_line = 'virtual void on' + cbName[2:] + '(dict model, dict error)\n'
+        override_line = '("on' + cbName[2:] + '")(model, error);\n'
     else:
         on_line = ''
         
@@ -175,15 +175,15 @@ def createProcess(cbName, cbArgsTypeList, cbArgsValueList):
 
         elif type_ in structDict:
             fprocess.write("\t"+ type_ + ' task_data = any_cast<' + type_ + '>(task.task_data);\n')
-            fprocess.write("\t"+ "dict data;\n")
+            fprocess.write("\t"+ "dict model;\n")
 
             struct = structDict[type_]
             for key in struct.keys():
-                fprocess.write("\t"+ 'data["' + key + '"] = task_data.' + key + ';\n')
+                fprocess.write("\t"+ 'model["' + key + '"] = task_data.' + key + ';\n')
 
             fprocess.write("\n")
 
-            onArgsList.append('data')
+            onArgsList.append('model')
 
         elif type_ == 'bool':
             onArgsList.append('task.task_last')

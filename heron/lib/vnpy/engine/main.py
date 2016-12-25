@@ -12,7 +12,7 @@ from pymongo.errors import ConnectionFailure
 from heron.lib.vnpy.gateway.ctp import CtpGateway
 from heron.lib.vnpy.event import EventEngine, Event
 from heron.lib.vnpy.event.type import EVENT_LOG
-from heron.lib.vnpy.data import Log
+from heron.lib.vnpy.model import Log
 from heron.lib.vnpy.settings import load_setting
 
 from data import DataEngine
@@ -149,7 +149,7 @@ class MainEngine(object):
         log = Log()
         log.content = content
         event = Event(type_=EVENT_LOG)
-        event.dict_['data'] = log
+        event.dict_['model'] = log
         self.eventEngine.put(event)
 
     def dbConnect(self):

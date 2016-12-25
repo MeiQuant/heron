@@ -6,7 +6,7 @@
 from copy import copy
 
 from heron.lib.vnpy.constant import EMPTY_INT, EMPTY_FLOAT
-from heron.lib.vnpy.data import Position
+from heron.lib.vnpy.model import Position
 
 from mapping import posiDirectionMapReverse
 

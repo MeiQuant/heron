@@ -12,7 +12,7 @@ from heron.lib.vnpy.settings import load_setting
 from heron.lib.vnpy.event.type import EVENT_LOG, EVENT_TIMER, EVENT_TRADE
 from heron.lib.vnpy.event import Event
 from heron.lib.vnpy.constant import EMPTY_INT
-from heron.lib.vnpy.data import Log
+from heron.lib.vnpy.model import Log
 
 
 # todo 自成交限制
@@ -79,7 +79,7 @@ class RiskManagerEngine(object):
 
     def updateTrade(self, event):
         """更新成交数据"""
-        trade = event.dict_['data']
+        trade = event.dict_['model']
         self.tradeCount += trade.volume
 
 
@@ -101,7 +101,7 @@ class RiskManagerEngine(object):
         log.content = content
         log.gatewayName = self.name
         event = Event(type_=EVENT_LOG)
-        event.dict_['data'] = log
+        event.dict_['model'] = log
         self.eventEngine.put(event)
 
 

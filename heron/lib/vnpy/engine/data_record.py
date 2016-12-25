@@ -9,7 +9,7 @@ from datetime import datetime
 from Queue import Queue, Empty
 from threading import Thread
 
-from heron.lib.vnpy.data import SubscribeReq, Tick, Bar, Log
+from heron.lib.vnpy.model import SubscribeReq, Tick, Bar, Log
 from heron.lib.vnpy.event.type import EVENT_TICK, EVENT_DATARECORDER_LOG
 from heron.lib.vnpy.event import Event
 from heron.lib.vnpy.settings import load_setting
@@ -44,8 +44,6 @@ class DataRecordEngine(object):
 
         # 载入设置，订阅行情
         self.loadSetting()
-
-
 
     def loadSetting(self):
         """载入设置"""
@@ -121,7 +119,7 @@ class DataRecordEngine(object):
 
     def procecssTickEvent(self, event):
         """处理行情推送"""
-        tick = event.dict_['data']
+        tick = event.dict_['model']
         vtSymbol = tick.vtSymbol
 
         TICK_DB_NAME = self.dbName['tick']
@@ -219,5 +217,5 @@ class DataRecordEngine(object):
         log = Log()
         log.content = content
         event = Event(type_=EVENT_DATARECORDER_LOG)
-        event.dict_['data'] = log
+        event.dict_['model'] = log
         self.eventEngine.put(event)

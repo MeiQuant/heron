@@ -20,81 +20,81 @@ class GatewayBase(object):
         """市场行情推送"""
         # 通用事件
         event1 = Event(type_=EVENT_TICK)
-        event1.dict_['data'] = tick
+        event1.dict_['model'] = tick
         self.eventEngine.put(event1)
 
         # 特定合约代码的事件
         event2 = Event(type_=EVENT_TICK+tick.vtSymbol)
-        event2.dict_['data'] = tick
+        event2.dict_['model'] = tick
         self.eventEngine.put(event2)
 
     def onTrade(self, trade):
         """成交信息推送"""
         # 通用事件
         event1 = Event(type_=EVENT_TRADE)
-        event1.dict_['data'] = trade
+        event1.dict_['model'] = trade
         self.eventEngine.put(event1)
 
         # 特定合约的成交事件
         event2 = Event(type_=EVENT_TRADE+trade.vtSymbol)
-        event2.dict_['data'] = trade
+        event2.dict_['model'] = trade
         self.eventEngine.put(event2)
 
     def onOrder(self, order):
         """订单变化推送"""
         # 通用事件
         event1 = Event(type_=EVENT_ORDER)
-        event1.dict_['data'] = order
+        event1.dict_['model'] = order
         self.eventEngine.put(event1)
 
         # 特定订单编号的事件
         event2 = Event(type_=EVENT_ORDER+order.vtOrderID)
-        event2.dict_['data'] = order
+        event2.dict_['model'] = order
         self.eventEngine.put(event2)
 
     def onPosition(self, position):
         """持仓信息推送"""
         # 通用事件
         event1 = Event(type_=EVENT_POSITION)
-        event1.dict_['data'] = position
+        event1.dict_['model'] = position
         self.eventEngine.put(event1)
 
         # 特定合约代码的事件
         event2 = Event(type_=EVENT_POSITION+position.vtSymbol)
-        event2.dict_['data'] = position
+        event2.dict_['model'] = position
         self.eventEngine.put(event2)
 
     def onAccount(self, account):
         """账户信息推送"""
         # 通用事件
         event1 = Event(type_=EVENT_ACCOUNT)
-        event1.dict_['data'] = account
+        event1.dict_['model'] = account
         self.eventEngine.put(event1)
 
         # 特定合约代码的事件
         event2 = Event(type_=EVENT_ACCOUNT+account.vtAccountID)
-        event2.dict_['data'] = account
+        event2.dict_['model'] = account
         self.eventEngine.put(event2)
 
     def onError(self, error):
         """错误信息推送"""
         # 通用事件
         event1 = Event(type_=EVENT_ERROR)
-        event1.dict_['data'] = error
+        event1.dict_['model'] = error
         self.eventEngine.put(event1)
 
     def onLog(self, log):
         """日志推送"""
         # 通用事件
         event1 = Event(type_=EVENT_LOG)
-        event1.dict_['data'] = log
+        event1.dict_['model'] = log
         self.eventEngine.put(event1)
 
     def onContract(self, contract):
         """合约基础信息推送"""
         # 通用事件
         event1 = Event(type_=EVENT_CONTRACT)
-        event1.dict_['data'] = contract
+        event1.dict_['model'] = contract
         self.eventEngine.put(event1)
 
     def connect(self):

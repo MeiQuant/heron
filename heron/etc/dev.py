@@ -3,6 +3,8 @@
 开发环境配置文件
 """
 
-import copy
-
+settings = {
+    'env': 'development',
+    'host': '192.168.33.10'
+}
 

@@ -5,7 +5,7 @@ trade事件监听
 
 from flask_socketio import Namespace
 
-from heron.lib.vnpy.data import Log, OrderReq, CancelOrderReq
+from heron.lib.vnpy.model import Log, OrderReq, CancelOrderReq
 from heron.lib.vnpy.event.type import EVENT_ORDER, EVENT_TRADE, EVENT_POSITION
 
 
@@ -19,17 +19,17 @@ class TradeNamespace(Namespace):
 
     # rtn order
     def update_order(self, event):
-        order_response = event.dict_['data']
+        order_response = event.dict_['model']
         self.emit('update_order', order_response.__dict__)
 
     # trade information
     def update_trade(self, event):
-        trade_response = event.dict_['data']
+        trade_response = event.dict_['model']
         self.emit('update_trade', trade_response.__dict__)
 
     # position information
     def update_position(self, event):
-        position = event.dict_['data']
+        position = event.dict_['model']
         position.msg = 'i am testing hot modify'
         self.emit('update_position', position.__dict__)
 
