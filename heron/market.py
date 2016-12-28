@@ -18,6 +18,20 @@ class MarketNamespace(Namespace):
 
         self.register_events()
 
+        # 默认订阅所有合约
+        self.subscribe_all()
+
+    def subscribe_all(self):
+        contracts = self.engine.dataEngine.getAllContracts()
+
+        for contract in contracts:
+            subscribe_req = SubscribeReq()
+            subscribe_req.symbol = contract.symbol
+            subscribe_req.currency = 'CHY'
+            subscribe_req.productClass = contract.productClass
+
+            self.engine.subscribe(subscribe_req, 'CTP')
+
     def update_tick(self, event):
         tick = event.dict_['model']
         # todo 转成有序数组发送给客户端
@@ -36,12 +50,4 @@ class MarketNamespace(Namespace):
         self.engine.subscribe(subscribe_req, 'CTP')
 
     def on_subscribe_all(self):
-        contracts = self.engine.dataEngine.getAllContracts()
-
-        for contract in contracts:
-            subscribe_req = SubscribeReq()
-            subscribe_req.symbol = contract.symbol
-            subscribe_req.currency = 'CHY'
-            subscribe_req.productClass = contract.productClass
-
-            self.engine.subscribe(subscribe_req, 'CTP')
+        self.subscribe_all()

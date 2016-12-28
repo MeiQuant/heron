@@ -26,7 +26,7 @@ class MainEngine(object):
     def __init__(self):
         """Constructor"""
 
-        self.is_run = False
+        self.is_run = True
 
         # 创建事件引擎
         self.eventEngine = EventEngine()

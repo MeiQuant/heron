@@ -32,3 +32,6 @@ eggs
 
 # Vagrant temp folder
 .vagrant
+
+# built files
+*.so

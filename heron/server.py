@@ -31,6 +31,7 @@ socketio = SocketIO(app, engineio_logger=settings['engineio_logger'], logger=set
 
 engine = MainEngine()
 
+# todo lazy subscribe by request path
 socketio.on_namespace(SystemNamespace(engine, '/system'))
 socketio.on_namespace(TradeNamespace(engine, '/trade'))
 socketio.on_namespace(MarketNamespace(engine, '/market'))
@@ -40,3 +41,18 @@ def start():
     print 'start server...'
     socketio.run(app, host=settings['host'])
 
+
+def restart():
+    """
+    restart server
+    :return:
+    """
+    pass
+
+
+def stop():
+    """
+    server stop
+    :return:
+    """
+    pass

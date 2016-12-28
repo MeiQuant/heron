@@ -17,7 +17,6 @@ from position_buffer import PositionBuffer
 class CtpTdApi(TdApi):
     """CTP交易API实现"""
 
-
     def __init__(self, gateway):
         """API对象的初始化函数"""
         super(CtpTdApi, self).__init__()
@@ -29,6 +28,7 @@ class CtpTdApi(TdApi):
         self.orderRef = EMPTY_INT  # 订单编号
 
         self.connectionStatus = False  # 连接状态
+        self.authStatus = True  # 身份认证状态, 默认不需要认证
         self.loginStatus = False  # 登录状态
 
         self.userID = EMPTY_STRING  # 账号
@@ -43,6 +43,8 @@ class CtpTdApi(TdApi):
         self.symbolExchangeDict = {}  # 保存合约代码和交易所的印射关系
         self.symbolSizeDict = {}  # 保存合约代码和合约大小的印射关系
 
+        self.userProductInfo = EMPTY_STRING  # 用户端产品信息
+        self.authCode = EMPTY_STRING  # 用户端认证码
 
     def onFrontConnected(self):
         """服务器连接"""
@@ -53,8 +55,12 @@ class CtpTdApi(TdApi):
         log.content = u'交易服务器连接成功'
         self.gateway.onLog(log)
 
-        self.login()
+        # 服务器连接之后进行身份认证
+        if not self.authStatus:
+            self.auth()
 
+        elif not self.loginStatus:
+            self.login()
 
     def onFrontDisconnected(self, n):
         """服务器断开"""
@@ -67,20 +73,38 @@ class CtpTdApi(TdApi):
         log.content = u'交易服务器连接断开'
         self.gateway.onLog(log)
 
-
-
     def onHeartBeatWarning(self, n):
         """"""
         pass
 
-
     def onRspAuthenticate(self, data, error, n, last):
-        """"""
-        pass
+        """
+        服务端返回的身份认证的响应
+        :param data:
+        :param error:
+        :param n:
+        :param last:
+        :return:
+        """
+        if error['ErrorID'] == 0:
+            self.authStatus = True
 
+            log = Log()
+            log.gatewayName = self.gatewayName
+            log.content = u"交易服务器认证完成"
+            self.gateway.onLog(log)
+
+            # 登录
+            self.login()
+        else:
+            err = Error()
+            err.gatewayName = self.gatewayName
+            err.errorID = error['ErrorID']
+            err.errorMsg = error['ErrorMsg'].decode('gbk')
+            self.gateway.onError(err)
 
     def onRspUserLogin(self, data, error, n, last):
-        """登陆回报"""
+        """登录回报"""
         # 如果登录成功，推送日志信息
         if error['ErrorID'] == 0:
             self.frontID = str(data['FrontID'])
@@ -108,7 +132,6 @@ class CtpTdApi(TdApi):
             err.errorMsg = error['ErrorMsg'].decode('gbk')
             self.gateway.onError(err)
 
-
     def onRspUserLogout(self, data, error, n, last):
         """登出回报"""
         # 如果登出成功，推送日志信息
@@ -129,16 +152,13 @@ class CtpTdApi(TdApi):
             err.errorMsg = error['ErrorMsg'].decode('gbk')
             self.gateway.onError(err)
 
-
     def onRspUserPasswordUpdate(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspTradingAccountPasswordUpdate(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspOrderInsert(self, data, error, n, last):
         """发单错误（柜台）"""
@@ -148,16 +168,13 @@ class CtpTdApi(TdApi):
         err.errorMsg = error['ErrorMsg'].decode('gbk')
         self.gateway.onError(err)
 
-
     def onRspParkedOrderInsert(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspParkedOrderAction(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspOrderAction(self, data, error, n, last):
         """撤单错误（柜台）"""
@@ -167,11 +184,9 @@ class CtpTdApi(TdApi):
         err.errorMsg = error['ErrorMsg'].decode('gbk')
         self.gateway.onError(err)
 
-
     def onRspQueryMaxOrderVolume(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspSettlementInfoConfirm(self, data, error, n, last):
         """确认结算信息回报"""
@@ -184,31 +199,25 @@ class CtpTdApi(TdApi):
         self.reqID += 1
         self.reqQryInstrument({}, self.reqID)
 
-
     def onRspRemoveParkedOrder(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspRemoveParkedOrderAction(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspExecOrderInsert(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspExecOrderAction(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspForQuoteInsert(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQuoteInsert(self, data, error, n, last):
         """"""
@@ -219,26 +228,21 @@ class CtpTdApi(TdApi):
         """"""
         pass
 
-
     def onRspLockInsert(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspCombActionInsert(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryOrder(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryTrade(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryInvestorPosition(self, data, error, n, last):
         """持仓查询回报"""
@@ -264,7 +268,6 @@ class CtpTdApi(TdApi):
             for buf in self.posBufferDict.values():
                 pos = buf.getPos()
                 self.gateway.onPosition(pos)
-
 
     def onRspQryTradingAccount(self, data, error, n, last):
         """资金账户查询回报"""
@@ -292,36 +295,29 @@ class CtpTdApi(TdApi):
         # 推送
         self.gateway.onAccount(account)
 
-
     def onRspQryInvestor(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryTradingCode(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryInstrumentMarginRate(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryInstrumentCommissionRate(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryExchange(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryProduct(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryInstrument(self, data, error, n, last):
         """合约查询回报"""
@@ -365,146 +361,117 @@ class CtpTdApi(TdApi):
         """"""
         pass
 
-
     def onRspQrySettlementInfo(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryTransferBank(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryInvestorPositionDetail(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryNotice(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQrySettlementInfoConfirm(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryInvestorPositionCombineDetail(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryCFMMCTradingAccountKey(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryEWarrantOffset(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryInvestorProductGroupMargin(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryExchangeMarginRate(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryExchangeMarginRateAdjust(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryExchangeRate(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQrySecAgentACIDMap(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryProductExchRate(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryProductGroup(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryOptionInstrTradeCost(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryOptionInstrCommRate(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryExecOrder(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryForQuote(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryQuote(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryLock(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryLockPosition(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryInvestorLevel(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryExecFreeze(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryCombInstrumentGuard(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryCombAction(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryTransferSerial(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryAccountregister(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspError(self, error, n, last):
         """错误回报"""
@@ -513,7 +480,6 @@ class CtpTdApi(TdApi):
         err.errorID = error['ErrorID']
         err.errorMsg = error['ErrorMsg'].decode('gbk')
         self.gateway.onError(err)
-
 
     def onRtnOrder(self, data):
         """报单回报"""
@@ -553,7 +519,6 @@ class CtpTdApi(TdApi):
         # 推送
         self.gateway.onOrder(order)
 
-
     def onRtnTrade(self, data):
         """成交回报"""
         # 创建报单数据对象
@@ -585,7 +550,6 @@ class CtpTdApi(TdApi):
         # 推送
         self.gateway.onTrade(trade)
 
-
     def onErrRtnOrderInsert(self, data, error):
         """发单错误回报（交易所）"""
         err = Error()
@@ -593,7 +557,6 @@ class CtpTdApi(TdApi):
         err.errorID = error['ErrorID']
         err.errorMsg = error['ErrorMsg'].decode('gbk')
         self.gateway.onError(err)
-
 
     def onErrRtnOrderAction(self, data, error):
         """撤单错误回报（交易所）"""
@@ -603,156 +566,125 @@ class CtpTdApi(TdApi):
         err.errorMsg = error['ErrorMsg'].decode('gbk')
         self.gateway.onError(err)
 
-
     def onRtnInstrumentStatus(self, data):
         """"""
         pass
-
 
     def onRtnTradingNotice(self, data):
         """"""
         pass
 
-
     def onRtnErrorConditionalOrder(self, data):
         """"""
         pass
-
 
     def onRtnExecOrder(self, data):
         """"""
         pass
 
-
     def onErrRtnExecOrderInsert(self, data, error):
         """"""
         pass
-
 
     def onErrRtnExecOrderAction(self, data, error):
         """"""
         pass
 
-
     def onErrRtnForQuoteInsert(self, data, error):
         """"""
         pass
-
 
     def onRtnQuote(self, data):
         """"""
         pass
 
-
     def onErrRtnQuoteInsert(self, data, error):
         """"""
         pass
-
 
     def onErrRtnQuoteAction(self, data, error):
         """"""
         pass
 
-
     def onRtnForQuoteRsp(self, data):
         """"""
         pass
-
 
     def onRtnCFMMCTradingAccountToken(self, data):
         """"""
         pass
 
-
     def onRtnLock(self, data):
         """"""
         pass
-
 
     def onErrRtnLockInsert(self, data, error):
         """"""
         pass
 
-
     def onRtnCombAction(self, data):
         """"""
         pass
-
 
     def onErrRtnCombActionInsert(self, data, error):
         """"""
         pass
 
-
     def onRspQryContractBank(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryParkedOrder(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryParkedOrderAction(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryTradingNotice(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQryBrokerTradingParams(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQryBrokerTradingAlgos(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspQueryCFMMCTradingAccountToken(self, data, error, n, last):
         """"""
         pass
-
 
     def onRtnFromBankToFutureByBank(self, data):
         """"""
         pass
 
-
     def onRtnFromFutureToBankByBank(self, data):
         """"""
         pass
-
 
     def onRtnRepealFromBankToFutureByBank(self, data):
         """"""
         pass
 
-
     def onRtnRepealFromFutureToBankByBank(self, data):
         """"""
         pass
-
 
     def onRtnFromBankToFutureByFuture(self, data):
         """"""
         pass
 
-
     def onRtnFromFutureToBankByFuture(self, data):
         """"""
         pass
 
-
     def onRtnRepealFromBankToFutureByFutureManual(self, data):
         """"""
         pass
-
 
     def onRtnRepealFromFutureToBankByFutureManual(self, data):
         """"""
@@ -793,48 +725,45 @@ class CtpTdApi(TdApi):
         """"""
         pass
 
-
     def onRtnRepealFromFutureToBankByFuture(self, data):
         """"""
         pass
-
 
     def onRspFromBankToFutureByFuture(self, data, error, n, last):
         """"""
         pass
 
-
     def onRspFromFutureToBankByFuture(self, data, error, n, last):
         """"""
         pass
-
 
     def onRspQueryBankAccountMoneyByFuture(self, data, error, n, last):
         """"""
         pass
 
-
     def onRtnOpenAccountByBank(self, data):
         """"""
         pass
-
 
     def onRtnCancelAccountByBank(self, data):
         """"""
         pass
 
-
     def onRtnChangeAccountByBank(self, data):
         """"""
         pass
 
-
-    def connect(self, userID, password, brokerID, address):
+    def connect(self, userID, password, brokerID, address, userproductinfo='', autocode=''):
         """初始化连接"""
         self.userID = userID  # 账号
         self.password = password  # 密码
         self.brokerID = brokerID  # 经纪商代码
         self.address = address  # 服务器地址
+
+        if userproductinfo and autocode:
+            self.userProductInfo = userproductinfo
+            self.authCode = autocode
+            self.authStatus = False
 
         # 如果尚未建立服务器连接，则进行连接
         if not self.connectionStatus:
@@ -856,23 +785,39 @@ class CtpTdApi(TdApi):
 
         # 若已经连接但尚未登录，则进行登录
         else:
-            if not self.loginStatus:
+            if not self.authStatus:
+                self.auth()
+
+            elif not self.loginStatus:
                 self.login()
-
-
 
     def login(self):
         """连接服务器"""
         # 如果填入了用户名密码等，则登录
         if self.userID and self.password and self.brokerID:
-            req = {}
-            req['UserID'] = self.userID
-            req['Password'] = self.password
-            req['BrokerID'] = self.brokerID
+            req = {
+                'UserID': self.userID,
+                'Password': self.password,
+                'BrokerID': self.brokerID
+            }
             self.reqID += 1
             self.reqUserLogin(req, self.reqID)
+            print req
 
-
+    def auth(self):
+        """
+        进行用户端身份认证
+        :return:
+        """
+        if self.authCode and self.userProductInfo:
+            req = {
+                'AuthCode': self.authCode,
+                'UserProductInfo': self.userProductInfo,
+                'BrokerID': self.brokerID,
+                'UserID': self.userID
+            }
+            self.reqID += 1
+            self.reqAuthenticate(req, self.reqID)
 
     def qryAccount(self):
         """查询账户"""
@@ -887,7 +832,6 @@ class CtpTdApi(TdApi):
         req['BrokerID'] = self.brokerID
         req['InvestorID'] = self.userID
         self.reqQryInvestorPosition(req, self.reqID)
-
 
     def sendOrder(self, orderReq):
         """发单"""
@@ -935,7 +879,6 @@ class CtpTdApi(TdApi):
         print orderReq.__dict__
         print req
         return vtOrderID
-
 
     def cancelOrder(self, cancelOrderReq):
         """撤单"""

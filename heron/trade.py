@@ -30,7 +30,6 @@ class TradeNamespace(Namespace):
     # position information
     def update_position(self, event):
         position = event.dict_['model']
-        position.msg = 'i am testing hot modify'
         self.emit('update_position', position.__dict__)
 
     def register_events(self):

@@ -43,9 +43,13 @@ class CtpGateway(GatewayBase):
             self.onLog(log)
             return
 
+        # 登录之前进行身份验证
+        userproductinfo = '90095044zf'
+        authcode = 'TJHF2N6O3J52SR99'
+
         # 创建行情和交易接口对象
         self.mdApi.connect(userID, password, brokerID, mdAddress)
-        self.tdApi.connect(userID, password, brokerID, tdAddress)
+        self.tdApi.connect(userID, password, brokerID, tdAddress, userproductinfo, authcode)
 
         # 初始化并启动查询
         self.initQuery()
