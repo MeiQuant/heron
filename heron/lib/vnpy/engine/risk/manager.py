@@ -88,7 +88,6 @@ class RiskManagerEngine(object):
 
     def writeRiskLog(self, content):
         """快速发出日志事件"""
-
         # 发出日志事件
         log = Log()
         log.content = content

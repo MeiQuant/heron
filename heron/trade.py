@@ -6,7 +6,7 @@ trade事件监听
 from flask_socketio import Namespace
 
 from heron.lib.vnpy.model import Log, OrderReq, CancelOrderReq
-from heron.lib.vnpy.event.type import EVENT_ORDER, EVENT_TRADE, EVENT_POSITION
+from heron.lib.vnpy.event.type import EVENT_ORDER, EVENT_TRADE, EVENT_POSITION, EVENT_ACCOUNT
 
 
 class TradeNamespace(Namespace):
@@ -32,6 +32,11 @@ class TradeNamespace(Namespace):
         position = event.dict_['model']
         self.emit('update_position', position.__dict__)
 
+    # update account
+    def update_account(self, event):
+        account = event.dict_['model']
+        self.emit('update_account', account.__dict__)
+
     def register_events(self):
 
         # 注册订单事件, 订单返回消息
@@ -42,6 +47,9 @@ class TradeNamespace(Namespace):
 
         # 注册持仓变更事件，返回持仓信息
         self.engine.eventEngine.register(EVENT_POSITION, self.update_position)
+
+        # 注册资金变更事件，返回资金账户变动
+        self.engine.eventEngine.register(EVENT_ACCOUNT, self.update_account)
 
     # send order
     def on_send_order(self, data):

@@ -4,7 +4,9 @@
     "tdAddress": "tcp://180.168.146.187:10000",
     "password": "123456",
     "mdAddress": "tcp://180.168.146.187:10010",
-    "userID": "074047"
+    "userID": "074047",
+    "userProductInfo": "",
+    "authCode": ""
   },
 
   "MongoDB": {
@@ -16,10 +18,10 @@
     "working": true,
 
     "dbName" : {
-      "setting": "VnTrader_Setting_Db",
-      "tick": "VnTrader_Tick_Db",
-      "daily": "VnTrader_Daily_Db",
-      "minute": "VnTrader_1Min_Db"
+      "setting": "heron_setting",
+      "tick": "heron_ticks",
+      "daily": "heron_days",
+      "minute": "heron_minutes"
     },
 
     "tick":
