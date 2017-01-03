@@ -74,7 +74,7 @@ class RiskManagerEngine(object):
 
     def updateTrade(self, event):
         """更新成交数据"""
-        trade = event.dict_['model']
+        trade = event.dict_['data']
         self.tradeCount += trade.volume
 
     def updateTimer(self, event):
@@ -93,7 +93,7 @@ class RiskManagerEngine(object):
         log.content = content
         log.gatewayName = self.name
         event = Event(type_=EVENT_LOG)
-        event.dict_['model'] = log
+        event.dict_['data'] = log
         self.eventEngine.put(event)
 
     def checkRisk(self, orderReq):

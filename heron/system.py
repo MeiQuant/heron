@@ -21,7 +21,7 @@ class SystemNamespace(Namespace):
         self.register_events()
 
     def send_log(self, event):
-        log = event.dict_['model']
+        log = event.dict_['data']
         self.emit('log', log.__dict__)
 
     def register_events(self):

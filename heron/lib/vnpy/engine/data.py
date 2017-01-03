@@ -34,7 +34,7 @@ class DataEngine(object):
 
     def updateContract(self, event):
         """更新合约数据"""
-        contract = event.dict_['model']
+        contract = event.dict_['data']
         self.contractDict[contract.vtSymbol] = contract
         self.contractDict[contract.symbol] = contract  # 使用常规代码（不包括交易所）可能导致重复
 
@@ -66,7 +66,7 @@ class DataEngine(object):
 
     def updateOrder(self, event):
         """更新委托数据"""
-        order = event.dict_['model']
+        order = event.dict_['data']
         self.orderDict[order.vtOrderID] = order
 
         # 如果订单的状态是全部成交或者撤销，则需要从workingOrderDict中移除

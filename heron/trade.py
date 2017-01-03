@@ -19,22 +19,22 @@ class TradeNamespace(Namespace):
 
     # rtn order
     def update_order(self, event):
-        order_response = event.dict_['model']
+        order_response = event.dict_['data']
         self.emit('update_order', order_response.__dict__)
 
     # trade information
     def update_trade(self, event):
-        trade_response = event.dict_['model']
+        trade_response = event.dict_['data']
         self.emit('update_trade', trade_response.__dict__)
 
     # position information
     def update_position(self, event):
-        position = event.dict_['model']
+        position = event.dict_['data']
         self.emit('update_position', position.__dict__)
 
     # update account
     def update_account(self, event):
-        account = event.dict_['model']
+        account = event.dict_['data']
         self.emit('update_account', account.__dict__)
 
     def register_events(self):

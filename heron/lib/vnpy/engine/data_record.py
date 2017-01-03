@@ -119,7 +119,7 @@ class DataRecordEngine(object):
 
     def procecssTickEvent(self, event):
         """处理行情推送"""
-        tick = event.dict_['model']
+        tick = event.dict_['data']
         vtSymbol = tick.vtSymbol
 
         TICK_DB_NAME = self.dbName['tick']
@@ -217,5 +217,5 @@ class DataRecordEngine(object):
         log = Log()
         log.content = content
         event = Event(type_=EVENT_DATARECORDER_LOG)
-        event.dict_['model'] = log
+        event.dict_['data'] = log
         self.eventEngine.put(event)

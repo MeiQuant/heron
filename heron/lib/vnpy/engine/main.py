@@ -149,7 +149,7 @@ class MainEngine(object):
         log = Log()
         log.content = content
         event = Event(type_=EVENT_LOG)
-        event.dict_['model'] = log
+        event.dict_['data'] = log
         self.eventEngine.put(event)
 
     def dbConnect(self):
