@@ -127,6 +127,16 @@ class RiskManagerEngine(object):
                               % (workingOrderCount, self.workingOrderLimit))
             return False
 
+        # 自成交检查
+        workingOrder = self.mainEngine.getAllWorkingOrders()
+        for order in workingOrder:
+            if order.symbol == orderReq.symbol and order.direction != orderReq.direction:
+                return False
+            else:
+                continue
+
+        # todo 撤单量限制
+
         # 对于通过风控的委托，增加流控计数
         self.orderFlowCount += 1
 
