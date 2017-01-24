@@ -131,6 +131,7 @@ class RiskManagerEngine(object):
         workingOrder = self.mainEngine.getAllWorkingOrders()
         for order in workingOrder:
             if order.symbol == orderReq.symbol and order.direction != orderReq.direction:
+                self.writeRiskLog(u'存在未成交的反向合约，请等待成交后发单')
                 return False
             else:
                 continue
