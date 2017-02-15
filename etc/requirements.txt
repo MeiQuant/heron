@@ -7,9 +7,6 @@ eventlet==0.20.0
 python-engineio
 python-socketio
 
-# Testing
-nose==1.3.7
-
 # database
 pymongo
 redis

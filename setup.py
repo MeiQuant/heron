@@ -2,10 +2,28 @@
 """
 
 """
-from setuptools import setup, find_packages
+
+from setuptools import setup, find_packages, Extension
+
+ext_data = dict(
+
+)
+
+extensions = []
+
+for name, data in ext_data.items():
+
+    obj = Extension('pandas.%s' % name,
+                    sources=sources,
+                    depends=data.get('depends', []),
+                    include_dirs=include,
+                    extra_compile_args=extra_compile_args)
+
+    extensions.append(obj)
+
 
 setup(
-    name='Heron',
+    name='heron',
     version='0.0.1',
     long_description=__doc__,
     packages=find_packages(include=['heron', 'heron.*']),

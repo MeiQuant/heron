@@ -35,3 +35,6 @@ eggs
 
 # built files
 *.so
+
+# log
+*.log

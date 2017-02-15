@@ -908,7 +908,6 @@ class CtpTdApi(TdApi):
             self.reqID += 1
             self.reqUserLogout(req, self.reqID)
 
-
     def close(self):
         """关闭"""
         self.exit()
