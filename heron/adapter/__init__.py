@@ -2,3 +2,4 @@
 """
 
 """
+from .adapter import BaseAdapter
