@@ -19,7 +19,7 @@ from heron.lib.vnpy.engine.main import MainEngine
 from heron.etc import settings
 
 from system import SystemNamespace
-from market import MarketNamespace
+from market_ns import MarketNamespace
 from trade import TradeNamespace
 
 # patch the socket module by eventlet to support multiple workers
