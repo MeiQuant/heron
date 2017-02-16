@@ -2,7 +2,7 @@
 """
 CTP交易API
 继承原生API，以实现原生功能
-已成BaseAdapter，以获取事件触发能力
+继承BaseAdapter，以获取事件触发能力
 """
 
 import os
