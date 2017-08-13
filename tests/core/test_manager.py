@@ -16,11 +16,14 @@ class TestManager(unittest.TestCase):
 
     def test_start(self):
         self.manager.start()
-        assert self.manager._running
+        # use property to access running status
+        self.assertTrue(self.manager.running)
+        self.assertIsNotNone(self.manager.pid)
+        self.assertEqual(self.manager.name, "Manager")
 
     def test_stop(self):
         self.manager.stop()
-        assert not self.manager._running
+        self.assertFalse(self.manager.running)
 
 
 if __name__ == '__main__':
