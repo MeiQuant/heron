@@ -61,7 +61,7 @@ class Unknown(object):
 
 
 def reprhandler(handler):
-    format = "<handler[%s][%s]%s (%s.%s)>"
+    format = "<handler[%s]%s (%s.%s)>"
 
     names = ",".join(handler.names)
 

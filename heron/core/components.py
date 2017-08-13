@@ -131,11 +131,11 @@ class BaseComponent(Manager):
         # Make sure that structure is consistent before firing event
         # because event may be handled in a concurrent thread.
         if parent is not self:
-            parent.registerChild(self)
+            parent.register_child(self)
             self._update_root(parent.root)
             self.fire(registered(self, self.parent))
         else:
-            self._updateRoot(parent.root)
+            self._update_root(parent.root)
 
         return self
 

@@ -140,7 +140,7 @@ class _EventQueue(object):
 
     def drain_from(self, other_queue):
         self._queue.extend(other_queue.queue)
-        other_queue._queue.clear()
+        other_queue.queue.clear()
         # Queue is currently flushing events /o\
         assert not len(other_queue.priority_queue)
 
@@ -160,7 +160,7 @@ class _EventQueue(object):
 
         while self._flush_batch > 0:
             self._flush_batch -= 1  # Decrement first!
-            (event, channels) = heappop(self._priority_queue)[2]
+            (event) = heappop(self._priority_queue)[2]
             dispatcher(event, self._flush_batch)
 
 
@@ -263,7 +263,7 @@ class Manager(object):
         else:
             id = current_thread().getName()
 
-        format = "<%s%s %s (queued=%d) [%s]>"
+        format = "<%s %s (queued=%d) [%s]>"
         return format % (name, id, q, state)
 
     def __contains__(self, y):
@@ -452,7 +452,9 @@ class Manager(object):
 
     flush = flush_events
 
-    def _dispatcher(self, event):
+    def _dispatcher(self, event, *args):
+
+        print(args)
 
         if event.cancelled:
             return
