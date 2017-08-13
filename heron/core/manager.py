@@ -161,7 +161,7 @@ class _EventQueue(object):
         while self._flush_batch > 0:
             self._flush_batch -= 1  # Decrement first!
             (event) = heappop(self._priority_queue)[2]
-            dispatcher(event, self._flush_batch)
+            dispatcher(event)
 
 
 class Manager(object):
@@ -320,14 +320,10 @@ class Manager(object):
         handlers = set()
 
         _handlers = set()
-        _handlers.update(self._handlers.get("*", []))
         _handlers.update(self._handlers.get(name, []))
 
         for _handler in _handlers:
                 handlers.add(_handler)
-
-        if not kwargs.get("exclude_globals", False):
-            handlers.update(self._globals)
 
         for c in self.components.copy():
             handlers.update(c.get_handlers(event, **kwargs))
@@ -452,9 +448,7 @@ class Manager(object):
 
     flush = flush_events
 
-    def _dispatcher(self, event, *args):
-
-        print(args)
+    def _dispatcher(self, event):
 
         if event.cancelled:
             return
@@ -474,13 +468,15 @@ class Manager(object):
         try:  # try/except is fastest if successful in most cases
             event_handlers = self._cache[event.name]
         except KeyError:
-            h = self.get_handlers(event)
+            h = (self.get_handlers(event))
 
-            event_handlers = sorted(
-                chain(*h),
-                key=attrgetter("priority"),
-                reverse=True
-            )
+            event_handlers = self.get_handlers(event)
+
+            # event_handlers = sorted(
+            #     chain(*h),
+            #     key=attrgetter("priority"),
+            #     reverse=True
+            # )
 
             self._cache[event.name] = event_handlers
 
@@ -502,7 +498,6 @@ class Manager(object):
                 self.stop(e.code)
             except:
                 value = err = _exc_info()
-                event.value.errors = True
 
                 if event.failure:
                     self.fire(
@@ -599,8 +594,6 @@ class Manager(object):
         used to build an application specific main loop.
         """
 
-        if self._running:
-            return
         if len(self._queue):
             self.flush()
 
@@ -624,7 +617,7 @@ class Manager(object):
         self.fire(started(self))
 
         try:
-            while self.running or len(self._queue):
+            while self._running or len(self._queue):
                 self.tick()
             # Fading out, handle remaining work from stop event
             for _ in range(3):

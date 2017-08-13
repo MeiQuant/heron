@@ -24,7 +24,7 @@ for name, data in ext_data.items():
 
 setup(
     name='heron',
-    version='0.0.1',
+    version='0.0.1a',
     long_description=__doc__,
     packages=find_packages(include=['heron', 'heron.*']),
     include_package_data=True,

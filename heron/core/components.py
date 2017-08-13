@@ -97,6 +97,7 @@ class BaseComponent(Manager):
         super(BaseComponent, self).__init__(*args, **kwargs)
         self._unregister_pending = False
 
+        # todo refactor this statement, very waste time here
         for k, v in getmembers(self):
             if getattr(v, "handler", False) is True:
                 self.add_handler(v)

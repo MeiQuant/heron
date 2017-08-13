@@ -13,8 +13,8 @@ from heron import Manager, Component
 
 class App(Component):
 
-    def test(self, event, *args):
-        pass
+    def test(self):
+        return "Hello World!"
 
 
 class TestManager(unittest.TestCase):
