@@ -36,7 +36,6 @@ class HeronConstantError(TypeError):
     pass
 
 
-
 class HeronWarning(Exception):
     """
     Heron Base Excepotion

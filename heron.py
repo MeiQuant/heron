@@ -15,9 +15,9 @@ Heron
 
 """
 
-
 import sys
-import heron.server as server
+
+import heron.trader.server as server
 
 
 def main():
