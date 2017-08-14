@@ -8,30 +8,22 @@ This module defines the basic event class and common events.
 # todo refactor event class
 class Event(object):
 
-    value = None
-    parent = None
-    notify = False
-    success = False
-    failure = False
-    complete = False
-    alert_done = False
-    waitingHandlers = 0
-
     @classmethod
     def create(cls, _name, *args, **kwargs):
+        """
+        Create an event by invoke Event.create()
+        :param _name:
+        :param args:
+        :param kwargs:
+        :return:
+        """
         return type(cls)(_name, (cls,), {})(*args, **kwargs)
 
-    def child(self, name, *args, **kwargs):
-        e = Event.create(
-            "{0:s}_{1:s}".format(self.name, name), *args, **kwargs
-        )
-        e.parent = self
-        return e
-
     def __init__(self, *args, **kwargs):
-        """An event is a message send to one or more components.
-        It is eventually dispatched to all components
-        that have handlers for one of the channels and the event type.
+        """
+        An event is a message send to components architecture.
+        It is eventually dispatched to all components that have handlers
+        for one of the event type.
 
         All normal arguments and keyword arguments passed to the constructor
         of an event are passed on to the handler. When declaring a
@@ -40,27 +32,6 @@ class Event(object):
 
         Every event has a :attr:`name` attribute that is used for matching
         the event with the handlers.
-
-        :var success: if this optional attribute is set to
-            ``True``, an associated event ``success`` (original name
-            with "_success" appended) will automatically be fired when all
-            handlers for the event have been invoked successfully.
-
-        :var success_channels: the success event is, by default, delivered
-            to same channels as the successfully dispatched event itself.
-            This may be overridden by specifying an alternative list of
-            destinations using this attribute.
-
-        :var complete: if this optional attribute is set to
-            ``True``, an associated event ``complete`` (original name
-            with "_complete" appended) will automatically be fired when all
-            handlers for the event and all events fired by these handlers
-            (recursively) have been invoked successfully.
-
-        :var complete_channels: the complete event is, by default, delivered
-            to same channels as the initially dispatched event itself.
-            This may be overridden by specifying an alternative list of
-            destinations using this attribute.
         """
 
         self.args = list(args)
@@ -78,8 +49,8 @@ class Event(object):
         del odict["handler"]
         return odict
 
-    def __setstate__(self, dict):
-        self.__dict__.update(dict)
+    def __setstate__(self, dicts):
+        self.__dict__.update(dicts)
 
     def __le__(self, other):
         return False
