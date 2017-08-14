@@ -10,12 +10,12 @@ def handler(*names, **kwargs):
     """Creates an Event Handler
 
     This decorator can be applied to methods of classes derived from
-    :class:`circuits.core.components.BaseComponent`. It marks the method as a
+    :class:`heron.core.components.BaseComponent`. It marks the method as a
     handler for the events passed as arguments to the ``@handler`` decorator.
     The events are specified by their name.
 
     The decorated method's arguments must match the arguments passed to the
-    :class:`circuits.core.events.Event` on creation. Optionally, the
+    :class:`heron.core.events.Event` on creation. Optionally, the
     method may have an additional first argument named *event*. If declared,
     the event object that caused the handler to be invoked is assigned to it.
 
@@ -29,7 +29,7 @@ def handler(*names, **kwargs):
 
     **Return value**
     The results returned by the handlers for an event are simply
-    collected in the :class:`heron.core.events.Event`'s :attr:`value`
+    collected in the :class:`heron.core.events.Event`'s :attr:`result`
     attribute.
     """
 
