@@ -8,13 +8,11 @@ This module defines the basic event class and common events.
 # todo refactor event class
 class Event(object):
 
-    value = None
     parent = None
     notify = False
     success = False
     failure = False
     complete = False
-    alert_done = False
     waitingHandlers = 0
 
     @classmethod
@@ -67,6 +65,7 @@ class Event(object):
         self.kwargs = kwargs
 
         self.uid = None
+        self.result = None
         self.handler = None
         self.stopped = False
         self.cancelled = False

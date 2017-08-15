@@ -110,7 +110,7 @@ class BaseComponent(Manager):
             self.init(*args, **kwargs)
 
         @handler("prepare_unregister_complete")
-        def _on_prepare_unregister_complete(self, event, e, value):
+        def _on_prepare_unregister_complete(self, event, value):
             self._do_prepare_unregister_complete(event.parent, value)
         self.add_handler(_on_prepare_unregister_complete)
 

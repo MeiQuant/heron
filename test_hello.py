@@ -24,13 +24,12 @@ class eventObj(object):
 
 class App(Component):
 
-    def hello(self, obj):
+    def hello(self):
         """Hello Event Handler"""
 
-        print(obj.a)
         print("Hello World! and")
 
-    def started(self):
+    def started(self, *args):
         """Started Event Handler
 
         This is fired internally when your application starts up
@@ -40,20 +39,13 @@ class App(Component):
 
         print("i am here")
 
-        obj = eventObj()
-        obj.a = "b"
-        obj.b = "a"
-
-        self.fire(hello(obj))  # Fire hello Event
+        self.fire(hello())  # Fire hello Event
         self.fire(terminate())
 
     def terminate(self):
         raise SystemExit(0)  # Terminate the Application
 
 app = App()
-
-while len(app):
-    app.flush()
 
 app.run()
 
