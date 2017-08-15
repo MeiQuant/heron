@@ -12,9 +12,9 @@ from heapq import heappop, heappush
 from multiprocessing import current_process
 from os import getpid
 from inspect import isfunction
-from operator import attrgetter
 from sys import exc_info as _exc_info, stderr
 from traceback import format_exc
+from operator import attrgetter
 
 
 from ..six import Iterator, create_bound_method, next
@@ -145,22 +145,20 @@ class _EventQueue(object):
         assert not len(other_queue.priority_queue)
 
     def append(self, event, priority):
-        """append an event to the queue"""
+        """append an event to the with the priority"""
         self._queue.append((priority, next(self._counter), event))
 
     def dispatch_events(self, dispatcher):
+        # todo refactor priority implementation
         if self._flush_batch == 0:
-            # FIXME: Might be faster to use heapify instead of pop +
-            # heappush. Though, with regards to thread safety this
-            # appears to be the better approach.
-            self._flush_batch = count = len(self._queue)
-            while count:
-                count -= 1
+            self._flush_batch = size = len(self._queue)
+            while size:
+                size -= 1
                 heappush(self._priority_queue, self._queue.popleft())
 
         while self._flush_batch > 0:
             self._flush_batch -= 1  # Decrement first!
-            (event) = heappop(self._priority_queue)[2]
+            event = heappop(self._priority_queue)[2]
             dispatcher(event)
 
 
@@ -225,7 +223,6 @@ class Manager(object):
         self._queue = _EventQueue()
 
         self._cache = dict()
-        self._globals = set()
         self._handlers = dict()
 
         self._flush_batch = 0
@@ -333,14 +330,12 @@ class Manager(object):
     def add_handler(self, f):
         method = create_bound_method(f, self) if isfunction(f) else f
 
+        # todo how to resolve duplicate method name
+
         # add handler
         setattr(self, method.__name__, method)
 
-        # todo remove channel
-
-        if not method.names and method.channel == "*":
-            self._globals.add(method)
-        elif not method.names:
+        if not method.names:
             self._handlers.setdefault("*", set()).add(method)
         else:
             for name in method.names:
@@ -372,6 +367,7 @@ class Manager(object):
         if component._executing_thread is not None:
             if self.root._executing_thread is not None:
                 raise UnregistrableError()
+            # todo check the safety of thread change
             self.root._executing_thread = component._executing_thread
             component._executing_thread = None
         self.components.add(component)
@@ -380,6 +376,7 @@ class Manager(object):
         self.root._cache_needs_refresh = True
 
     def unregister_child(self, component):
+        # todo check if the events drained would be fired after remove components
         self.components.remove(component)
         self.root._cache_needs_refresh = True
 
@@ -411,8 +408,6 @@ class Manager(object):
                 # self._currently_handling = None though, but then need to copy
                 # it to a local variable here before performing a sequence of
                 # operations that assume its value to remain unchanged.
-                handling = self._currently_handling
-
                 self._queue.append(event, priority)
 
     def fire_event(self, event, **kwargs):
@@ -423,7 +418,9 @@ class Manager(object):
 
         self.root._fire(event, **kwargs)
 
-        return event
+        # todo implement Promise
+
+        return event.result
 
     fire = fire_event
 
@@ -468,86 +465,48 @@ class Manager(object):
         try:  # try/except is fastest if successful in most cases
             event_handlers = self._cache[event.name]
         except KeyError:
-            h = (self.get_handlers(event))
+            h = self.get_handlers(event)
 
-            event_handlers = self.get_handlers(event)
+            # todo refactor priority sort method
 
-            # event_handlers = sorted(
-            #     chain(*h),
-            #     key=attrgetter("priority"),
-            #     reverse=True
-            # )
+            # sorted events by priority
+            event_handlers = sorted(
+                h,
+                key=lambda x: x.priority,
+                reverse=True
+            )
 
             self._cache[event.name] = event_handlers
 
         self._currently_handling = event
 
-        value = None
-        err = None
+        result = None
 
         for event_handler in event_handlers:
             event.handler = event_handler
+            # todo refactor arguments number
             try:
                 if event_handler.event:
-                    value = event_handler(event, *eargs, **ekwargs)
+                    result = event_handler(event, *eargs, **ekwargs)
                 else:
-                    value = event_handler(*eargs, **ekwargs)
+                    result = event_handler(*eargs, **ekwargs)
             except KeyboardInterrupt:
                 self.stop()
             except SystemExit as e:
                 self.stop(e.code)
             except:
-                value = err = _exc_info()
-
-                if event.failure:
-                    self.fire(
-                        event.child("failure", event, err)
-                    )
+                result = _exc_info()
 
                 # todo raise a failure exception
 
-            if value is not None:
-                event.value = value
+            if result is not None:
+                event.result = result
 
             if event.stopped:
                 break  # Stop further event processing
 
         self._currently_handling = None
-        self._event_done(event, err)
-
-    def _event_done(self, event, err=None):
-        if event.waitingHandlers:
-            return
-
-        # The "%s_done" event is for internal use by waitEvent only.
-        # Use the "%s_success" event in your application if you are
-        # interested in being notified about the last handler for
-        # an event having been invoked.
-        if event.alert_done:
-            self.fire(event.child("done", event.value))
-
-        if err is None and event.success:
-            self.fire(
-                event.child("success", event, event.value.value))
-
-        while True:
-            # cause attributes indicates interest in completion event
-            cause = getattr(event, "cause", None)
-            if not cause:
-                break
-            # event takes part in complete detection (as nested or root event)
-            event.effects -= 1
-            if event.effects > 0:
-                break  # some nested events remain to be completed
-            if event.complete:  # does this event want signaling?
-                self.fire(
-                    event.child("complete", event, event.value.value))
-
-            # this event and nested events are done now
-            delattr(event, "cause")
-            delattr(event, "effects")
-            # cause has one of its nested events done, decrement and check
-            event = cause
+        # todo add event done callback
 
     def start(self):
         """
@@ -596,6 +555,8 @@ class Manager(object):
 
         if len(self._queue):
             self.flush()
+        else:
+            return
 
     def run(self):
         """
