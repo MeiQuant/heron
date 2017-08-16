@@ -42,8 +42,6 @@ def handler(*names, **kwargs):
 
         f.names = names
         f.priority = kwargs.get("priority", 0)
-        f.override = kwargs.get("override", False)
-
         args = getargspec(f)[0]
 
         if args and args[0] == "self":

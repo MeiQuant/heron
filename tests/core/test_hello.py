@@ -47,5 +47,5 @@ class App(Component):
 
 app = App()
 
-app.run()
+app.start()
 

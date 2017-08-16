@@ -8,6 +8,7 @@ import unittest
 from heron import Event, Component, Manager
 
 
+
 class test(Event):
 
     """test Event"""
@@ -19,8 +20,10 @@ class terminate(Event):
 
 class App(Component):
 
+    tmp = ""
+
     def test(self):
-        return "Hello World!"
+        self.tmp = "Hello World!"
 
     def unregistered(self, *args):
         return
@@ -42,7 +45,7 @@ class TestCore(unittest.TestCase):
     def test_fire(self):
         x = m.fire(test())
         m.flush()
-        self.assertEqual(x.value, "Hello World!")
+        self.assertEqual(app.tmp, "Hello World!")
 
     def test_contains(self):
         assert App in m

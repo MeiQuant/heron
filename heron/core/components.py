@@ -70,21 +70,12 @@ class BaseComponent(Manager):
     def __new__(cls, *args, **kwargs):
         self = super(BaseComponent, cls).__new__(cls)
 
-        handlers = dict(
-            [(k, v) for k, v in list(cls.__dict__.items())
-                if getattr(v, "handler", False)]
-        )
-
-        def overridden(x):
-            return x in handlers and handlers[x].override
-
         for base in cls.__bases__:
             if issubclass(cls, base):
                 for k, v in list(base.__dict__.items()):
                     p1 = isinstance(v, Callable)
                     p2 = getattr(v, "handler", False)
-                    p3 = overridden(k)
-                    if p1 and p2 and not p3:
+                    if p1 and p2:
                         name = "%s_%s" % (base.__name__, k)
                         method = MethodType(v, self)
                         setattr(self, name, method)

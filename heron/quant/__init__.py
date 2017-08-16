@@ -6,7 +6,11 @@ Quant.bt = Quant.backtest
 
 """
 
+from heron import BaseComponent
 
-def backtest():
 
-    print("I am backtest method")
+class Quant(BaseComponent):
+
+    def backtest(self):
+
+        print("I am backtest method")

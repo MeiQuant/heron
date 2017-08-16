@@ -7,14 +7,13 @@ from collections import deque
 from threading import RLock, Thread, current_thread
 from signal import SIGTERM
 from time import time
-from itertools import chain, count
+from itertools import count
 from heapq import heappop, heappush
 from multiprocessing import current_process
 from os import getpid
 from inspect import isfunction
 from sys import exc_info as _exc_info, stderr
 from traceback import format_exc
-from operator import attrgetter
 
 
 from ..six import Iterator, create_bound_method, next
@@ -415,12 +414,9 @@ class Manager(object):
 
         :param event: The event that is to be fired.
         """
-
-        self.root._fire(event, **kwargs)
-
         # todo implement Promise
 
-        return event.result
+        self.root._fire(event, **kwargs)
 
     fire = fire_event
 

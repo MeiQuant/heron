@@ -60,7 +60,7 @@ class TestManager(unittest.TestCase):
         self.assertTrue(m.running)
 
         s = repr(m)
-        self.assertEqual(s, "<Manager %s (queued=3) [R]>" % id)
+        self.assertEqual(s, "<Manager %s (queued=0) [R]>" % id)
 
         m.stop()
 
