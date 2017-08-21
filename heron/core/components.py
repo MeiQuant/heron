@@ -190,7 +190,7 @@ class BaseComponent(Manager):
             self.parent.unregister_child(self)
             self.parent = self
 
-        self._updateRoot(self)
+        self._update_root(self)
         return self
 
     def _update_root(self, root):

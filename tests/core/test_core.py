@@ -8,7 +8,6 @@ import unittest
 from heron import Event, Component, Manager
 
 
-
 class test(Event):
 
     """test Event"""
@@ -20,9 +19,9 @@ class terminate(Event):
 
 class App(Component):
 
-    tmp = ""
+    tmp = "aa"
 
-    def test(self):
+    def test(self, *args):
         self.tmp = "Hello World!"
 
     def unregistered(self, *args):

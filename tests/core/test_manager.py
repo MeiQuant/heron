@@ -13,7 +13,7 @@ from heron import Manager, Component
 
 class App(Component):
 
-    def test(self):
+    def test(self, *args):
         return "Hello World!"
 
 
@@ -26,7 +26,7 @@ class TestManager(unittest.TestCase):
     def test_start(self):
         self.manager.start()
         # use property to access running status
-        self.assertTrue(self.manager.running)
+        self.assertTrue(self.manager._running)
         self.assertIsNotNone(self.manager.pid)
         self.assertEqual(self.manager.name, "Manager")
 

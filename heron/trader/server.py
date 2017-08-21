@@ -34,7 +34,7 @@ engine = MainEngine()
 # todo lazy subscribe by request path
 socketio.on_namespace(SystemNamespace(engine, '/system'))
 socketio.on_namespace(TradeNamespace(engine, '/trade'))
-socketio.on_namespace(MarketNamespace(engine, '/market'))
+socketio.on_namespace(MarketNamespace(engine, '/data'))
 
 
 def start():

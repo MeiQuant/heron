@@ -8,24 +8,6 @@ This module defines the basic event class and common events.
 # todo refactor event class
 class Event(object):
 
-    parent = None
-    notify = False
-    success = False
-    failure = False
-    complete = False
-
-
-    @classmethod
-    def create(cls, _name, *args, **kwargs):
-        """
-        Create an event by invoke Event.create()
-        :param _name:
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        return type(cls)(_name, (cls,), {})(*args, **kwargs)
-
     def __init__(self, *args, **kwargs):
         """
         An event is a message send to components architecture.
@@ -44,27 +26,8 @@ class Event(object):
         self.args = list(args)
         self.kwargs = kwargs
 
-        self.uid = None
-        self.result = None
-        self.handler = None
-        self.stopped = False
-        self.cancelled = False
         if not hasattr(self, 'name'):
             self.name = self.__class__.__name__
-
-    def __getstate__(self):
-        odict = self.__dict__.copy()
-        del odict["handler"]
-        return odict
-
-    def __setstate__(self, dicts):
-        self.__dict__.update(dicts)
-
-    def __le__(self, other):
-        return False
-
-    def __gt__(self, other):
-        return False
 
     def __repr__(self):
         "x.__repr__() <==> repr(x)"
@@ -110,44 +73,6 @@ class Event(object):
         else:
             raise TypeError("Expected int or str, got %r" % type(i))
 
-    def cancel(self):
-        """Cancel the event from being processed (if not already)"""
-
-        self.cancelled = True
-
-    def stop(self):
-        """Stop further processing of this event"""
-
-        self.stopped = True
-
-
-class started(Event):
-
-    """started Event
-
-    This Event is sent when a Component or Manager has started running.
-
-    :param manager: The component or manager that was started
-    :type  manager: Component or Manager
-    """
-
-    def __init__(self, manager):
-        super(started, self).__init__(manager)
-
-
-class stopped(Event):
-
-    """stopped Event
-
-    This Event is sent when a Component or Manager has stopped running.
-
-    :param manager: The component or manager that has stopped
-    :type  manager: Component or Manager
-    """
-
-    def __init__(self, manager):
-        super(stopped, self).__init__(manager)
-
 
 class registered(Event):
 
@@ -175,4 +100,3 @@ class unregistered(Event):
     This Event is sent when a Component has been unregistered from its
     Component or Manager.
     """
-

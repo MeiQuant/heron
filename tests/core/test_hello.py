@@ -1,15 +1,21 @@
+#!/Users/alfred/anaconda/bin/python
 # encoding: UTF-8
 """
 
 """
 from __future__ import print_function
-
+from time import sleep
 
 from heron import Component, Event
 
 
 class hello(Event):
     """hello Event"""
+
+    num = 0
+
+    def set_num(self, i):
+        self.num = i
 
 
 class terminate(Event):
@@ -24,10 +30,10 @@ class eventObj(object):
 
 class App(Component):
 
-    def hello(self):
+    def hello(self, event):
         """Hello Event Handler"""
 
-        print("Hello World! and")
+        print("Hello World! and i am %d" % event.num)
 
     def started(self, *args):
         """Started Event Handler
@@ -39,8 +45,18 @@ class App(Component):
 
         print("i am here")
 
-        self.fire(hello())  # Fire hello Event
-        self.fire(terminate())
+        for i in range(10):
+            # sleep(0.1)
+            # h = hello()
+            # h.num = i
+            h = hello()
+            h.num = i
+            self.fire(h)
+        # Fire hello Event
+
+        # self.fire(hello())
+
+        # self.fire(terminate())
 
     def terminate(self):
         raise SystemExit(0)  # Terminate the Application

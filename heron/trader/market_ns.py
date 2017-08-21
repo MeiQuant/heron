@@ -14,7 +14,7 @@ from heron.lib.vnpy.event.type import EVENT_TICK
 
 class MarketNamespace(Namespace):
 
-    def __init__(self, engine, namespace='/market'):
+    def __init__(self, engine, namespace='/data'):
         super(Namespace, self).__init__(namespace)
         self.engine = engine
 

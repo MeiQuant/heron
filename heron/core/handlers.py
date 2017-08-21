@@ -19,14 +19,6 @@ def handler(*names, **kwargs):
     method may have an additional first argument named *event*. If declared,
     the event object that caused the handler to be invoked is assigned to it.
 
-    Keyword argument ``priority`` influences the order in which handlers
-    for a specific event are invoked. The higher the priority, the earlier
-    the handler is executed.
-
-    If you want to override a handler defined in a base class of your
-    component, you must specify ``override=True``, else your method becomes
-    an additional handler for the event.
-
     **Return value**
     The results returned by the handlers for an event are simply
     collected in the :class:`heron.core.events.Event`'s :attr:`result`
@@ -41,7 +33,6 @@ def handler(*names, **kwargs):
         f.handler = True
 
         f.names = names
-        f.priority = kwargs.get("priority", 0)
         args = getargspec(f)[0]
 
         if args and args[0] == "self":

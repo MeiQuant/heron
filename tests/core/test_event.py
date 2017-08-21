@@ -36,21 +36,6 @@ class TestEvent(unittest.TestCase):
         s = repr(e)
         self.assertEqual(s, "<test ( )>")
 
-    def test_create(self):
-        app = App()
-        while len(app):
-            app.flush()
-
-        e = Event.create("test")
-
-        s = repr(e)
-        self.assertEqual(s, "<test ( )>")
-
-        app.fire(e)
-
-        s = repr(e)
-        self.assertEqual(s, "<test ( )>")
-
     def test_getitem(self):
         app = App()
         while len(app):

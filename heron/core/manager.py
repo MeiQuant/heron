@@ -6,19 +6,15 @@ import atexit
 from collections import deque
 from threading import RLock, Thread, current_thread
 from signal import SIGTERM
-from time import time
-from itertools import count
-from heapq import heappop, heappush
 from multiprocessing import current_process
 from os import getpid
 from inspect import isfunction
 from sys import exc_info as _exc_info, stderr
 from traceback import format_exc
 
-
-from ..six import Iterator, create_bound_method, next
-from .events import started, stopped
+from .events import Event
 from ..tools import tryimport
+from ..six import create_bound_method
 
 try:
     from signal import SIGKILL
@@ -33,93 +29,16 @@ thread = tryimport(("thread", "_thread"))
 
 class UnregistrableError(Exception):
 
-    """
-    Raised if a component cannot be registered as child.
-    """
-
-
-class TimeoutError(Exception):
-
-    """Raised if wait event timeout occurred"""
-
-
-class ExceptionWrapper(object):
-
-    def __init__(self, exception):
-        self.exception = exception
-
-    def extract(self):
-        return self.exception
-
-
-class Sleep(Iterator):
-
-    def __init__(self, seconds):
-        self._task = None
-
-        try:
-            self.expiry = time() + float(seconds)
-        except ValueError:
-            raise TypeError("a float is required")
-
-    def __iter__(self):
-        return self
-
-    def __repr__(self):
-        return "sleep({0:s})".format(repr(self.expiry - time()))
-
-    def __next__(self):
-        if time() >= self.expiry:
-            raise StopIteration()
-        return self
-
-    @property
-    def expired(self):
-        return time() >= self.expiry
-
-    @property
-    def task(self):
-        return self._task
-
-    @task.setter
-    def task(self, task):
-        self._task = task
-
-
-def sleep(seconds):
-    """
-    Delay execution of a coroutine for a given number of seconds.
-    The argument may be a floating point number for subsecond precision.
-    """
-
-    return Sleep(seconds)
-
-
-class _State(object):
-    __slots__ = ('task', 'run', 'flag', 'event', 'timeout', 'parent', 'task_event', 'tick_handler')
-
-    def __init__(self, timeout):
-        self.task = None
-        self.run = False
-        self.flag = False
-        self.event = None
-        self.timeout = timeout
-        self.parent = None
-        self.task_event = None
-        self.tick_handler = None
+    """Raised if a component cannot be registered as child."""
 
 
 class _EventQueue(object):
-    __slots__ = ('_queue', '_priority_queue', '_counter', '_flush_batch')
 
     def __init__(self):
         self._queue = deque()
-        self._priority_queue = []
-        self._counter = count()
-        self._flush_batch = 0
 
     def __len__(self):
-        return len(self._queue) + len(self._priority_queue)
+        return len(self._queue)
 
     @property
     def queue(self):
@@ -129,36 +48,53 @@ class _EventQueue(object):
         """
         return self._queue
 
-    @property
-    def priority_queue(self):
-        """
-        Return the Priority Event Queue. Often used in register child.
-        :return:
-        """
-        return self._priority_queue
-
     def drain_from(self, other_queue):
         self._queue.extend(other_queue.queue)
         other_queue.queue.clear()
-        # Queue is currently flushing events /o\
-        assert not len(other_queue.priority_queue)
 
-    def append(self, event, priority):
+    def append(self, event):
         """append an event to the with the priority"""
-        self._queue.append((priority, next(self._counter), event))
+        self._queue.append(event)
 
     def dispatch_events(self, dispatcher):
         # todo refactor priority implementation
-        if self._flush_batch == 0:
-            self._flush_batch = size = len(self._queue)
-            while size:
-                size -= 1
-                heappush(self._priority_queue, self._queue.popleft())
+        size = len(self._queue)
+        while size:
+            size -= 1
+            event = self._queue.popleft()
+            try:
+                dispatcher(event)
+            except:
+                # todo add dispatcher error catch
+                pass
 
-        while self._flush_batch > 0:
-            self._flush_batch -= 1  # Decrement first!
-            event = heappop(self._priority_queue)[2]
-            dispatcher(event)
+
+class started(Event):
+
+    """started Event
+
+    This Event is sent when a Component or Manager has started running.
+
+    :param manager: The component or manager that was started
+    :type  manager: Component or Manager
+    """
+
+    def __init__(self, manager):
+        super(started, self).__init__(manager)
+
+
+class stopped(Event):
+
+    """stopped Event
+
+    This Event is sent when a Component or Manager has stopped running.
+
+    :param manager: The component or manager that has stopped
+    :type  manager: Component or Manager
+    """
+
+    def __init__(self, manager):
+        super(stopped, self).__init__(manager)
 
 
 class Manager(object):
@@ -305,42 +241,34 @@ class Manager(object):
         """
         return self._queue
 
-    def get_handlers(self, event, **kwargs):
+    def get_handlers(self, event):
         """
         Get registered handlers by event
         :param event:
-        :param kwargs:
         :return:
         """
         name = event.name
         handlers = set()
 
-        _handlers = set()
-        _handlers.update(self._handlers.get(name, []))
-
-        for _handler in _handlers:
-                handlers.add(_handler)
+        handlers.update(self._handlers.get(name, []))
 
         for c in self.components.copy():
-            handlers.update(c.get_handlers(event, **kwargs))
+            handlers.update(c.get_handlers(event))
 
         return handlers
 
     def add_handler(self, f):
+        """
+        Dynamic add event handler
+        :param f:
+        :return:
+        """
         method = create_bound_method(f, self) if isfunction(f) else f
 
-        # todo how to resolve duplicate method name
-
-        # add handler
         setattr(self, method.__name__, method)
 
-        if not method.names:
-            self._handlers.setdefault("*", set()).add(method)
-        else:
-            for name in method.names:
-                self._handlers.setdefault(name, set()).add(method)
-
-        self.root._cache_needs_refresh = True
+        for name in method.names:
+            self._handlers.setdefault(name, set()).add(method)
 
         return method
 
@@ -360,8 +288,6 @@ class Manager(object):
                     # Handler was never part of self
                     pass
 
-        self.root._cache_needs_refresh = True
-
     def register_child(self, component):
         if component._executing_thread is not None:
             if self.root._executing_thread is not None:
@@ -372,51 +298,23 @@ class Manager(object):
         self.components.add(component)
         # drain event queue from the child component
         self.root._queue.drain_from(component.queue)
-        self.root._cache_needs_refresh = True
 
     def unregister_child(self, component):
         # todo check if the events drained would be fired after remove components
         self.components.remove(component)
-        self.root._cache_needs_refresh = True
 
-    def _fire(self, event, priority=0):
-        # check if event is fired while handling an event
-        th = (self._executing_thread or self._flushing_thread)
-        if thread.get_ident() == (th.ident if th else None):
-            if self._currently_handling is not None and \
-                    getattr(self._currently_handling, "cause", None):
-                # if the currently handled event wants to track the
-                # events generated by it, do the tracking now
-                event.cause = self._currently_handling
-                event.effects = 1
-                self._currently_handling.effects += 1
+    def _fire(self, event):
 
-            self._queue.append(event, priority)
+        self._queue.append(event)
 
-        # the event comes from another thread
-        else:
-            # Another thread has provided us with something to do.
-            # If the component is running, we must make sure that
-            # any pending generate event waits no longer, as there
-            # is something to do now.
-            with self._lock:
-                # Modifications of attribute self._currently_handling
-                # (in _dispatch()), calling reduce_time_left(0). and adding an
-                # event to the (empty) event queue must be atomic, so we have
-                # to lock. We can save the locking around
-                # self._currently_handling = None though, but then need to copy
-                # it to a local variable here before performing a sequence of
-                # operations that assume its value to remain unchanged.
-                self._queue.append(event, priority)
-
-    def fire_event(self, event, **kwargs):
+    def fire_event(self, event):
         """Fire an event into the system.
 
         :param event: The event that is to be fired.
         """
         # todo implement Promise
 
-        self.root._fire(event, **kwargs)
+        self.root._fire(event)
 
     fire = fire_event
 
@@ -443,49 +341,19 @@ class Manager(object):
 
     def _dispatcher(self, event):
 
-        if event.cancelled:
-            return
-
-        if event.complete:
-            if not getattr(event, "cause", None):
-                event.cause = event
-            event.effects = 1  # event itself counts (must be done)
-        eargs = event.args
-        ekwargs = event.kwargs
-
-        if self._cache_needs_refresh:
-            # Don't call self._cache.clear() from other threads,
-            # this may interfere with cache rebuild.
-            self._cache.clear()
-            self._cache_needs_refresh = False
-        try:  # try/except is fastest if successful in most cases
-            event_handlers = self._cache[event.name]
-        except KeyError:
-            h = self.get_handlers(event)
-
-            # todo refactor priority sort method
-
-            # sorted events by priority
-            event_handlers = sorted(
-                h,
-                key=lambda x: x.priority,
-                reverse=True
-            )
-
-            self._cache[event.name] = event_handlers
+        event_handlers = self.get_handlers(event)
 
         self._currently_handling = event
 
         result = None
 
+        # todo refactor event result
+
         for event_handler in event_handlers:
             event.handler = event_handler
             # todo refactor arguments number
             try:
-                if event_handler.event:
-                    result = event_handler(event, *eargs, **ekwargs)
-                else:
-                    result = event_handler(*eargs, **ekwargs)
+                result = event_handler(event)
             except KeyboardInterrupt:
                 self.stop()
             except SystemExit as e:
@@ -497,9 +365,6 @@ class Manager(object):
 
             if result is not None:
                 event.result = result
-
-            if event.stopped:
-                break  # Stop further event processing
 
         self._currently_handling = None
         # todo add event done callback
@@ -532,27 +397,12 @@ class Manager(object):
 
         self._running = False
 
-        self.fire(stopped(self))
-
         if self.root._executing_thread is None:
             for _ in range(3):
-                self.tick()
+                self.flush()
 
         if code is not None:
             raise SystemExit(code)
-
-    def tick(self):
-        """
-        Execute all possible actions once. Flush the event queue.
-
-        This method is usually invoked from :meth:`~.run`. It may also be
-        used to build an application specific main loop.
-        """
-
-        if len(self._queue):
-            self.flush()
-        else:
-            return
 
     def run(self):
         """
@@ -575,16 +425,16 @@ class Manager(object):
 
         try:
             while self._running or len(self._queue):
-                self.tick()
+                self.flush()
             # Fading out, handle remaining work from stop event
             for _ in range(3):
-                self.tick()
+                self.flush()
         except Exception as exc:
             stderr.write("Unhandled ERROR: {0:s}\n".format(exc))
             stderr.write(format_exc())
         finally:
             try:
-                self.tick()
+                self.flush()
             except:
                 pass
 
