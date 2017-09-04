@@ -12,3 +12,5 @@ This will replicate how a live strategy would function as current
 market data would be sent "down the pipe". Thus a historic and live
 system will be treated identically by the rest of the backtesting suite.
 """
+
+from reader import DataReader

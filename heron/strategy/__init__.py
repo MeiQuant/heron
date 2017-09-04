@@ -22,14 +22,22 @@ since it obtains the bar tuples from a queue object.
 """
 
 
-from heron import BaseComponent, Event
+from heron import BaseComponent, Event, handler
+from heron.quant.backtest import backtest as bt
 
 
-class Strategy(BaseComponent):
+class BaseStrategy(BaseComponent):
 
-    """
-    调用回测引擎，对自己进行回测
-    """
-    def backtest(self):
+    @handler("tick")
+    def on_tick(self):
+        pass
 
-        print('i am tester')
+    @handler("bar")
+    def on_bar(self):
+        pass
+
+    def backtest(self, start, end):
+        """
+        调用回测引擎，对自己进行回测
+        """
+        bt(self, start, end)

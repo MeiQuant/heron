@@ -45,12 +45,10 @@ class Quant(BaseComponent):
         super(Quant, self).__init__()
         self.data = None
 
-    @handler("Tick2")
-    def Tick2(self, data, data2):
+    @handler("Tick")
+    def tick(self, tick):
 
-        print data
-
-        self.data = data
+        tick.data = "data11"
 
         return "i am a tick event handler"
 
@@ -61,9 +59,5 @@ class Quant(BaseComponent):
     def backtest(self):
 
         return "I am backtest method"
-
-    def tick(self):
-
-        return 'as'
 
 quant = Quant()

@@ -4,7 +4,6 @@
 
 """
 from __future__ import print_function
-from time import sleep
 
 from heron import Component, Event
 
